@@ -1,13 +1,14 @@
 //Final Project by Christopher Liang, Justin Pacquing, and Jeffrey Zou
 
-string state; //"MENU", "PLAY", "OPTIONS", "CREDITS"
-string typeProgress;
+String state; //"MENU", "PLAY", "OPTIONS", "CREDITS"
+String typeProgress;
 ArrayList<String> allWords;
 //Queue for words to be dropped
 //Stack for words already typed
 
 void setup() {
   size(960,1080);
+  state = "MENU";
 }
 
 void draw() {
