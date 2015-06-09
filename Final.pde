@@ -7,12 +7,34 @@ ArrayList<String> allWords;
 //Stack for words already typed
 
 void setup() {
-  size(960,1080);
+  size(750,750);
   state = "MENU";
 }
 
 void draw() {
   if (state.equals("MENU")) {
+    background(0,0,0);
+    textSize(64);
+    text("Hello Bitches",175,335);
+    textSize(20);
+    rectMode(CENTER);
+    if ((275 <= mouseX && mouseX <= 475) && (350 <= mouseY && mouseY <= 450))
+      fill(10,10,10);
+    else 
+      fill(255);
+    rect(375,400,200,50);
+    if ((275 <= mouseX && mouseX <= 475) && (400 <= mouseY && mouseY <= 500))
+      fill(10,10,10);
+    else 
+      fill(255);
+    rect(375,475,200,50);
+    if ((275 <= mouseX && mouseX <= 475) && (400 <= mouseY && mouseY <= 550))
+      fill(10,10,10);
+    else 
+      fill(255);
+    rect(375,550,200,50);
+    fill(255);
+    
   //Draw Circle Buttons w/ text for each state
   }
   else if (state.equals("PLAY")) {
