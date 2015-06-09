@@ -15,26 +15,29 @@ void draw() {
   if (state.equals("MENU")) {
     background(0,0,0);
     textSize(64);
-    text("Hello Bitches",175,335);
+    textAlign(CENTER, CENTER);
+    text("Text Game", width/2, height/2-100);
     textSize(20);
     rectMode(CENTER);
-    if ((275 <= mouseX && mouseX <= 475) && (350 <= mouseY && mouseY <= 450))
-      fill(10,10,10);
+    if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2+25 <= mouseY && mouseY <= height/2+75))
+      fill(25,25,112);
     else 
       fill(255);
-    rect(375,400,200,50);
-    if ((275 <= mouseX && mouseX <= 475) && (400 <= mouseY && mouseY <= 500))
-      fill(10,10,10);
+    //rect(width/2, height/2 + 50, 200, 50);
+    text("Play", width/2, height/2+50);
+    if ((width/2 - 100 <= mouseX && mouseX <= width/2+100) && (height/2+100 <= mouseY && mouseY <= height/2+150))
+      fill(104,34,139);
     else 
       fill(255);
-    rect(375,475,200,50);
-    if ((275 <= mouseX && mouseX <= 475) && (400 <= mouseY && mouseY <= 550))
-      fill(10,10,10);
+    //rect(width/2, height/2 + 125, 200, 50);
+    text("Options", width/2, height/2+125);
+    if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2+175 <= mouseY && mouseY <= height/2+225))
+      fill(255,0,255);
     else 
       fill(255);
-    rect(375,550,200,50);
+    //rect(width/2, height/2 + 200, 200, 50);
+    text("Credits", width/2, height/2+200);
     fill(255);
-    
   //Draw Circle Buttons w/ text for each state
   }
   else if (state.equals("PLAY")) {
