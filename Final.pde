@@ -1,14 +1,24 @@
 //Final Project by Christopher Liang, Justin Pacquing, and Jeffrey Zou
 
+int speed;
+int numberOfWords;
+int score; //1 per word
+
+float time;
+
 String state; //"MENU", "PLAY", "OPTIONS", "CREDITS"
 String typeProgress;
+String wordFile;
 ArrayList<String> allWords;
-//Queue for words to be dropped
-//Stack for words already typed
+Word[] onScreen;
+Queue toDrop;
+Stack mostRecent;
 
 void setup() {
   size(750,750);
   state = "MENU";
+  wordFile = "test.txt";
+  getAllWords(wordFile);
 }
 
 void draw() {
@@ -80,10 +90,38 @@ void draw() {
         state = "MENU";
     }
   }
-  Queue q = new Queue();
-  q.enqueue("Test");
-  println(q.dequeue());
+  static ArrayList<String> getWords(String fileName){
+    ArrayList<String> re = new ArrayList<String>();
+    try{
+        FileReader reader = new FileReader(fileName);
+        BufferedReader buffRead = new BufferedReader(reader);
+        String a = buffRead.readLine();
+        while (a != null){
+      re.add(a);
+      a = buffRead.readLine();
+        }
+    }
+    catch(FileNotFoundException ex) {
+        System.out.println( "Err: File Not Found" );
+    }
+    catch(IOException ex) { 
+        System.out.println( "Err: IO" );
+    }
+    return re;
+  }
+  
+  void getAllWords(){
+    allWords = getWords(wordFile);
+  }
+  
+  //drop: takes from Queue and initiates into game
+  //calls to drop are delayed 
+  
+  //fall: input a Word object, changes y-coordinate
+  
+  //keyPressed:
+
 }
 
-//Methods "PLAY" needs: populate words list, drop to add new words on screen, move words on screen, key pressed to 
-//record letter typed, 
+
+
