@@ -80,6 +80,9 @@ void draw() {
         state = "MENU";
     }
   }
+  Queue q = new Queue();
+  q.enqueue("Test");
+  println(q.dequeue());
 }
 
 //Methods "PLAY" needs: populate words list, drop to add new words on screen, move words on screen, key pressed to 
