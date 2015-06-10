@@ -1,6 +1,6 @@
 class Queue{  
-  LNode<Object> front;
-  LNode<Object> back;
+  DNode<Object> front;
+  DNode<Object> back;
   int size;
   
   Queue(){
@@ -9,7 +9,7 @@ class Queue{
   }
     
   void enqueue(Object o){
-    LNode<Object> newBack = new LNode<Object>(o);
+    DNode<Object> newBack = new DNode<Object>(o);
     if (size == 0)
       front = back = newBack;
     else {

@@ -1,9 +1,9 @@
-class LNode<E>{
+class DNode<E>{
   
   E data;
-  LNode<E> next;
+  DNode<E> next;
   
-  LNode( E d ) {
+  DNode( E d ) {
     data = d;
   }
   
@@ -15,7 +15,7 @@ class LNode<E>{
     data = c;
    }
    
-  void setNext( LNode<E> n ) {
+  void setNext( DNode<E> n ) {
     next = n;
   }
   
@@ -23,7 +23,7 @@ class LNode<E>{
     return data;
   }
   
-  LNode<E> getNext() {
+  DNode<E> getNext() {
     return next;
   }
 }  

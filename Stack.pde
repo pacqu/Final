@@ -1,12 +1,12 @@
 class Stack{  
-  LNode<Object> front;
+  DNode<Object> front;
   
   Stack(){
-    front = new LNode<Object>('\u0000');
+    front = new DNode<Object>('\u0000');
   }
     
   void push(Object o){
-    LNode<Object> newFront = new LNode<Object>(o);
+    DNode<Object> newFront = new DNode<Object>(o);
     newFront.setNext(front);
     front = newFront;
   }
