@@ -1,4 +1,4 @@
-class DNode<E>{
+class DNode<E> {
   
   E data;
   DNode<E> next;
