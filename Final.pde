@@ -12,12 +12,14 @@ void setup() {
 }
 
 void draw() {
+  int currX;
+  int currY;
   if (state.equals("MENU")) {
     textSize(64);
     textAlign(CENTER, CENTER);
     rectMode(CENTER);
     background(0, 0, 0);
-    text(NAME, width/2, height/2-100);
+    text("NAME", width/2, height/2-100);
     textSize(20);
     if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2+25 <= mouseY && mouseY <= height/2+75))
       fill(25, 25, 112);
