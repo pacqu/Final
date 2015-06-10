@@ -3,13 +3,13 @@ float x;
 float y;
 String txt;
 
-Word(float cx, float cy, String t){
+Word(float cx, float cy, String t) {
   x = cx;
   y = cy;
   txt = t; 
 }
 
-void display(){
+void display() {
   text(txt, cx, cy);
   
 }
