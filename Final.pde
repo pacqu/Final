@@ -16,6 +16,8 @@ ArrayList<String> allWords;
 Word[] onScreen;
 Queue toDrop;
 Stack mostRecent;
+int currX;
+int currY;
 
 void setup() {
   size(750,750);
@@ -25,10 +27,26 @@ void setup() {
 }
 
 void draw() {
-  int currX;
-  int currY;
   if (state.equals("MENU")) {
-    textSize(64);
+    stateMenu();
+  } 
+  else if (state.equals("PLAY")) {
+    statePlay();
+    /*
+    else if (mode.equals("TIMED"))
+    */
+  } 
+  else if (state.equals("OPTIONS")) {
+    stateOptions();
+  }
+  
+  else if (state.equals("CREDITS")) {
+    stateCredits();
+  }
+}
+
+static void stateMenu() {
+  textSize(64);
     textAlign(CENTER, CENTER);
     rectMode(CENTER);
     background(0, 0, 0);
@@ -65,9 +83,9 @@ void draw() {
       else if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+175 <= currY && currY <= height/2+225))
         state = "CREDITS";
     }
-  } 
-  else if (state.equals("PLAY")) {
-    if (mode.equals("NORMAL")) {  
+}
+static void statePlay() {
+  if (mode.equals("NORMAL")) {  
       textSize(64);
       textAlign(CENTER, CENTER);
       rectMode(CENTER);
@@ -99,7 +117,7 @@ void draw() {
         fill(255);
       text("Back", width/2, height/2+275);
       fill(255);
-  
+
       if (mousePressed && mouseButton == LEFT) {
         currX = mouseX;
         currY = mouseY;
@@ -113,57 +131,16 @@ void draw() {
           state = "MENU";
       }
     }
-    /*
-    else if (mode.equals("TIMED"))
-    */
-} 
-  else if (state.equals("OPTIONS")) {
-    textSize(30);
-    textAlign(CENTER, CENTER);
-    rectMode(CENTER);
-    background(0, 0, 0);
-    fill(255);
-    text("Mode", width/2, height/4);
-    textSize(20);
-    if (mode.equals("NORMAL"))
-      fill(255,0,0);
-    else 
-      fill(255);
-    text("Normal", width/2-100, height/4 + 50);
-    fill(255);
-    if (mode.equals("TIMED"))
-      fill(0,255, 0);
-    text("Timed", width/2, height/4 + 50);
-    fill(255);
-    if (mousePressed && mouseButton == LEFT) {
-      currX = mouseX;
-      currY = mouseY;
-      if ((width/2 - 125 <= currX &&  currX <= width/2 -25) && (height/4 +50<= currY && currY <= height/4+150))
-        mode = "NORMAL";
-      else if ((width/2 - 50 <= currX && currX <= width/2 + 50) && (height/4 + 50 <= currY && currY <= height/4 +150))
-        mode = "TIMED";
-    }
-<<<<<<< HEAD
-} 
-  else if (state.equals("OPTIONS")) {
-    background(255);
-    Word test = new Word(100,100,"TEST", 64);
-    test.setHighlight("TE");
-    test.display();
-} 
-=======
-    textSize(30);
-    fill(255);
-    text("Speed", width/2, height/2);
-    textSize(20);
-    text(speed, width/2-50,height/2+50);
-    rect(width/2,height/2 + 50,20,20);
-    rect(width/2+50,height/2 + 50, 20,20);
-  }
-  
->>>>>>> origin/master
-  else if (state.equals("CREDITS")) {
-    textSize(64);
+}
+static void stateOptions() {
+  background(255);
+  Word test = new Word(100,100,"TEST", 64);
+  test.setHighlight("TE");
+  test.display();
+}
+
+static void stateCredits() {
+  textSize(64);
     textAlign(CENTER, CENTER);
     rectMode(CENTER);
     background(0, 0, 0);
@@ -184,36 +161,35 @@ void draw() {
       if ((width/2 - 100 <= currX && currX <= width/2 + 100) && (height/2 -200 <= currY && currY <= height/2 -100))
         state = "MENU";
     }
-  }
 }
 
-  static ArrayList<String> getWords(String fileName){
-    ArrayList<String> re = new ArrayList<String>();
-    try{
-        FileReader reader = new FileReader(fileName);
-        BufferedReader buffRead = new BufferedReader(reader);
-        String a = buffRead.readLine();
-        while (a != null){
+static ArrayList<String> getWords(String fileName){
+  ArrayList<String> re = new ArrayList<String>();
+  try{
+    FileReader reader = new FileReader(fileName);
+    BufferedReader buffRead = new BufferedReader(reader);
+    String a = buffRead.readLine();
+    while (a != null){
       re.add(a);
       a = buffRead.readLine();
-        }
     }
-    catch(FileNotFoundException ex) {
-        System.out.println( "Err: File Not Found" );
-    }
-    catch(IOException ex) { 
-        System.out.println( "Err: IO" );
-    }
-    return re;
   }
-  
-  void getAllWords(){
-    allWords = getWords(wordFile);
+  catch(FileNotFoundException ex) {
+    System.out.println( "Err: File Not Found" );
   }
-  
+  catch(IOException ex) { 
+    System.out.println( "Err: IO" );
+  }
+  return re;
+}
+
+void getAllWords(){
+  allWords = getWords(wordFile);
+}
+
   //drop: takes from Queue and initiates into game
   //calls to drop are delayed 
-  
+
   //fall: input a Word object, changes y-coordinate
-  
+
   //keyPressed:
