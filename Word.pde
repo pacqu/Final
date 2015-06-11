@@ -1,5 +1,6 @@
 //for visual representation of words
 class Word {
+<<<<<<< HEAD
   
   float x;
   float y;
@@ -35,7 +36,21 @@ class Word {
     textSize(txtSize);
     text(txt, cx, cy);    
   }
-}
+=======
+  float x;
+  float y;
+  String txt;
 
+  Word(float cx, float cy, String t) {
+    x = cx;
+    y = cy;
+    txt = t; 
+  }
+
+  void display() {
+    text(txt, x, y);
+  } 
+>>>>>>> origin/master
+}
 
 
