@@ -117,9 +117,11 @@ void draw() {
   //drop: takes from Queue and initiates into game
   //calls to drop are delayed 
   
-  //fall: input a Word object, changes y-coordinate
+  //fall: input a Word object, changes y-coordinate, if word falls 
+  //to certain y, user loses/point deducted/whatever we decide
   
-  //keyPressed:
+  //keyPressed: add/removes to typeProgress string as necessary, 
+  //resets when user enters
 
 }
 
