@@ -112,6 +112,10 @@ void draw() {
     }
 } 
   else if (state.equals("OPTIONS")) {
+    background(255);
+    Word test = new Word(100,100,"TEST", 64);
+    test.setHighlight("TE");
+    test.display();
 } 
   else if (state.equals("CREDITS")) {
     textSize(64);

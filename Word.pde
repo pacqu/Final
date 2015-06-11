@@ -1,6 +1,5 @@
 //for visual representation of words
 class Word {
-<<<<<<< HEAD
   
   float x;
   float y;
@@ -16,12 +15,14 @@ class Word {
   }
   
   void setHighlight(String progress) {
-    for (int i = 0; i < prog.length; i++)
-      if (prog.charAt(i) != txt.charAt(i)){
+    for (int i = 0; i < progress.length(); i++)
+      if (progress.charAt(i) != txt.charAt(i)){
         highlight = "";
         return;
       }
-    highlight = progress;  
+    highlight = progress;
+    for (int j = (progress.length() - 1 ); j < txt.length(); j++)
+      highlight += " ";  
   } 
   
   void changeY(float newY) {
@@ -29,28 +30,13 @@ class Word {
   }
   
   void display() {
-    //fill();
-    textSize(txtSize + 3);
-    text(highlight, cx, cy);
-    //fill();
+    fill(0);
     textSize(txtSize);
-    text(txt, cx, cy);    
-  }
-=======
-  float x;
-  float y;
-  String txt;
-
-  Word(float cx, float cy, String t) {
-    x = cx;
-    y = cy;
-    txt = t; 
-  }
-
-  void display() {
     text(txt, x, y);
-  } 
->>>>>>> origin/master
+    fill(100);
+    textSize(txtSize + 1);
+    text(highlight, x, y);    
+  }
 }
 
 

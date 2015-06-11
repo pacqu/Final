@@ -1,6 +1,6 @@
 class Stack {  
   DNode<Object> front;
-  size;
+  int size;
   
   Stack() {
     front = new DNode<Object>('\u0000');
