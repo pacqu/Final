@@ -1,18 +1,18 @@
 //for visual representation of words
-float x;
-float y;
-String txt;
+class Word {
+  float x;
+  float y;
+  String txt;
 
-Word(float cx, float cy, String t) {
-  x = cx;
-  y = cy;
-  txt = t; 
+  Word(float cx, float cy, String t) {
+    x = cx;
+    y = cy;
+    txt = t; 
+  }
+
+  void display() {
+    text(txt, x, y);
+  } 
 }
-
-void display() {
-  text(txt, cx, cy);
-  
-}
-
 
 
