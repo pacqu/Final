@@ -1,4 +1,5 @@
 //Final Project by Christopher Liang, Justin Pacquing, and Jeffrey Zou
+import java.io.*;
 
 int speed;
 int numberOfWords;
@@ -7,6 +8,7 @@ int score; //1 per word
 float time;
 
 String state; //"MENU", "PLAY", "OPTIONS", "CREDITS"
+String difficulty; //"NOOB", "HARD", "IMPOSSIBLE"
 String typeProgress;
 String wordFile;
 ArrayList<String> allWords;
@@ -18,7 +20,7 @@ void setup() {
   size(750,750);
   state = "MENU";
   wordFile = "test.txt";
-  getAllWords(wordFile);
+  getAllWords();
 }
 
 void draw() {
@@ -29,10 +31,11 @@ void draw() {
     textAlign(CENTER, CENTER);
     rectMode(CENTER);
     background(0, 0, 0);
-    text("NAME", width/2, height/2-100);
+    fill(0,255,0);
+    text("This game", width/2, height/2-100);
     textSize(20);
     if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2+25 <= mouseY && mouseY <= height/2+75))
-      fill(25, 25, 112);
+      fill(0, 0, 255);
     else 
       fill(255);
     //rect(width/2, height/2 + 50, 200, 50);
@@ -63,7 +66,50 @@ void draw() {
     }
   } 
   else if (state.equals("PLAY")) {
-  
+    textSize(64);
+    textAlign(CENTER, CENTER);
+    rectMode(CENTER);
+    background(0, 0, 0);
+    text("Select Difficulty", width/2, height/2-100);
+    textSize(20);
+    if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2+25 <= mouseY && mouseY <= height/2+75))
+      fill(25, 25, 112);
+    else 
+      fill(255);
+    //rect(width/2, height/2 + 50, 200, 50);
+    text("Noob", width/2, height/2+50);
+    if ((width/2 - 100 <= mouseX && mouseX <= width/2+100) && (height/2+100 <= mouseY && mouseY <= height/2+150))
+      fill(104, 34, 139);
+    else 
+      fill(255);
+    //rect(width/2, height/2 + 125, 200, 50);
+    text("Hard", width/2, height/2+125);
+    if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2+175 <= mouseY && mouseY <= height/2+225))
+      fill(255, 0, 255);
+    else 
+      fill(255);
+    //rect(width/2, height/2 + 200, 200, 50);
+    text("Impossible", width/2, height/2+200);
+    fill(255);
+    if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2+250 <= mouseY && mouseY <= height/2+300))
+      fill(192,192,192);
+    else
+      fill(255);
+    text("Back", width/2, height/2+275);
+    fill(255);
+
+    if (mousePressed && mouseButton == LEFT) {
+      currX = mouseX;
+      currY = mouseY;
+      if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+25 <= currY && currY <= height/2+75))
+        difficulty = "NOOB";
+      else if ((width/2 - 100 <= currX && currX <= width/2+100) && (height/2+100 <= currY && currY <= height/2+150))  
+        difficulty = "HARD";
+      else if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+175 <= currY && currY <= height/2+225))
+        difficulty = "IMPOSSIBLE";
+      else if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+225 <= currY && currY <= height/2+300))
+        state = "MENU";
+    }
 } 
   else if (state.equals("OPTIONS")) {
 } 
@@ -90,6 +136,8 @@ void draw() {
         state = "MENU";
     }
   }
+}
+
   static ArrayList<String> getWords(String fileName){
     ArrayList<String> re = new ArrayList<String>();
     try{
@@ -121,4 +169,5 @@ void draw() {
   
   //keyPressed:
 
-}
+
+
