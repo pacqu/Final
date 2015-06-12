@@ -30,12 +30,12 @@ class Word {
   }
   
   void display() {
-    fill(0);
-    textSize(txtSize);
-    text(txt, x, y);
     fill(100);
     textSize(txtSize + 1);
     text(highlight, x, y);    
+    fill(0);
+    textSize(txtSize);
+    text(txt, x, y);
   }
 }
 
