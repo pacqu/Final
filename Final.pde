@@ -10,7 +10,7 @@ float time;
 String state; //"MENU", "PLAY", "OPTIONS", "CREDITS"
 String difficulty; //"NOOB", "HARD", "IMPOSSIBLE"
 String mode = "NORMAL";
-String typeProgress;
+String typeProgress = "";
 String wordFile;
 ArrayList<String> allWords;
 Word[] onScreen;
@@ -219,12 +219,12 @@ void fall(Word w){
     return;
 }
   //keyPressed:
-void keyPresed(){
-   if((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z')){
+void keyPressed(){
+   if ((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z')){
      typeProgress += key;
      typeProgress = typeProgress.toLowerCase();
-   }
-   else if (key == ENTER || key == RETURN)
+   } 
+  else if (key == ENTER || key == RETURN)
      //check whether typeProgress is word in list, if is remove and add to score;
      typeProgress = "";
 }
