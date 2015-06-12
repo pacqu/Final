@@ -24,9 +24,16 @@ class Word {
     //for (int j = (progress.length() - 1 ); j < txt.length(); j++)
       //highlight += " ";  
   } 
+  float getY(){
+    return y;
+  }
   
-  void changeY(float newY) {
-    y = newY;
+  String getTxt(){
+    return txt;
+  }
+  
+  void addToY(float sub) {
+    y += sub;
   }
   
   void display() {

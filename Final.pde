@@ -22,8 +22,8 @@ int currY;
 void setup() {
   size(750,750);
   state = "MENU";
-  wordFile = "test.txt";
-  getAllWords();
+  wordFile = "words_full.txt";
+  typeProgress = "a";
 }
 
 void draw() {
@@ -133,10 +133,7 @@ void statePlay() {
     }
 }
 void stateOptions() {
-  background(0);
-  Word test = new Word(100,100,"TEST", 64);
-  test.setHighlight("TES");
-  test.display();
+  println(typeProgress);
 }
 
 void stateCredits() {
@@ -187,10 +184,37 @@ void getAllWords(){
   allWords = getWords(wordFile);
 }
 
+void setToDrop(){
+  getAllWords();
+  for (int i = 0; i < 5; i++){
+    toDrop.enqueue(allWords.remove(random(allWords.size())));
+  }
+}
   //drop: takes from Queue and initiates into game
   //calls to drop are delayed 
 
+void drop(){
+  String curr = (String) toDrop.dequeue();
+  Word currWord = new Word(random(width), 100, curr, 16);
+  //100 to be changed, should be start of "drop region"
+  toDrop.enqueue(allWords.remove(random(allWords.size())));
+}
+  
   //fall: input a Word object, changes y-coordinate
-
+void fall(Word w){
+  w.addToY(50);
+  if (w.getY() <= 200) //WE NEED TO DEFINE BOUNDS OF 'FALLING' REGION
+    //whatever penalties for not getting word in time
+    return;
+}
   //keyPressed:
+void keyPresed(){
+   if((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z')){
+     typeProgress += key;
+     typeProgress = typeProgress.toLowerCase();
+   }
+   else if (key == ENTER || key == RETURN)
+     //check whether typeProgress is word in list, if is remove and add to score;
+     typeProgress = "";
+}
 
