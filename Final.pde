@@ -13,7 +13,7 @@ String mode = "NORMAL";
 String typeProgress = "";
 String wordFile;
 ArrayList<String> allWords;
-Word[] onScreen;
+ArrayList<Word> onScreen;
 Queue toDrop;
 Stack mostRecent;
 int currX;
@@ -22,8 +22,10 @@ int currY;
 void setup() {
   size(750,750);
   state = "MENU";
-  wordFile = "words_full.txt";
+  wordFile = "words.txt";
   typeProgress = "a";
+  onScreen = new ArrayList<Word>();
+  toDrop = new Queue();
 }
 
 void draw() {
@@ -137,7 +139,12 @@ void statePlay() {
 }
 
 void stateOptions() {
-  println(typeProgress);
+  background(0);
+  getAllWords();
+  setToDrop();
+  drop();
+  for (int i = 0; i < onScreen.size(); i++)
+    fall(onScreen.get(i));
 }
 
 void stateCredits() {
@@ -164,11 +171,10 @@ void stateCredits() {
     }
 }
 
-static ArrayList<String> getWords(String fileName){
+ArrayList<String> getWords(String fileName){
   ArrayList<String> re = new ArrayList<String>();
   try{
-    FileReader reader = new FileReader(fileName);
-    BufferedReader buffRead = new BufferedReader(reader);
+    BufferedReader buffRead = createReader(fileName);
     String a = buffRead.readLine();
     while (a != null){
       re.add(a);
@@ -191,7 +197,9 @@ void getAllWords(){
 void setToDrop(){
   getAllWords();
   for (int i = 0; i < 5; i++){
-    toDrop.enqueue(allWords.remove(random(allWords.size())));
+    int rem = (int) random(allWords.size());
+    String en = allWords.remove(rem);
+    toDrop.enqueue(en);
   }
 }
   //drop: takes from Queue and initiates into game
@@ -200,6 +208,7 @@ void setToDrop(){
 void drop(){
   String curr = (String) toDrop.dequeue();
   Word currWord = new Word(random(width), 100, curr, 16);
+  onScreen.add(currWord);
   //100 to be changed, should be start of "drop region"
   toDrop.enqueue(allWords.remove(random(allWords.size())));
 }
@@ -218,7 +227,12 @@ void keyPressed(){
      typeProgress = typeProgress.toLowerCase();
    } 
   else if (key == ENTER || key == RETURN)
-     //check whether typeProgress is word in list, if is remove and add to score;
+     for (int i = 0; i < onScreen.size(); i++){
+       if (onScreen.get(i).equals(typeProgress)) {
+         onScreen.remove(i);
+         score += 1; //This part changes depending on how we keep track of score
+       }
+     }
      typeProgress = "";
 }
 
