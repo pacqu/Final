@@ -45,7 +45,7 @@ void draw() {
   }
 }
 
-static void stateMenu() {
+void stateMenu() {
   textSize(64);
     textAlign(CENTER, CENTER);
     rectMode(CENTER);
@@ -84,7 +84,7 @@ static void stateMenu() {
         state = "CREDITS";
     }
 }
-static void statePlay() {
+void statePlay() {
   if (mode.equals("NORMAL")) {  
       textSize(64);
       textAlign(CENTER, CENTER);
@@ -132,14 +132,14 @@ static void statePlay() {
       }
     }
 }
-static void stateOptions() {
-  background(255);
+void stateOptions() {
+  background(0);
   Word test = new Word(100,100,"TEST", 64);
-  test.setHighlight("TE");
+  test.setHighlight("TES");
   test.display();
 }
 
-static void stateCredits() {
+void stateCredits() {
   textSize(64);
     textAlign(CENTER, CENTER);
     rectMode(CENTER);

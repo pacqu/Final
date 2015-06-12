@@ -21,8 +21,8 @@ class Word {
         return;
       }
     highlight = progress;
-    for (int j = (progress.length() - 1 ); j < txt.length(); j++)
-      highlight += " ";  
+    //for (int j = (progress.length() - 1 ); j < txt.length(); j++)
+      //highlight += " ";  
   } 
   
   void changeY(float newY) {
@@ -30,12 +30,13 @@ class Word {
   }
   
   void display() {
-    fill(100);
+    fill(255);
     textSize(txtSize + 1);
-    text(highlight, x, y);    
-    fill(0);
-    textSize(txtSize);
-    text(txt, x, y);
+    for (int i = 0; i < highlight.length(); i++)
+      text(highlight.charAt(i), x + (i*(txtSize/2)), y);    
+    fill(100);
+    for (int j = highlight.length(); j < txt.length(); j++)
+      text(txt.charAt(j), x + (j*(txtSize/2)) , y);
   }
 }
 
