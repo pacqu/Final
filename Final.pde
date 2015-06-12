@@ -46,11 +46,7 @@ void draw() {
 }
 
 void stateMenu() {
-<<<<<<< HEAD
-    textSize(64);
-=======
   textSize(64);
->>>>>>> origin/master
     textAlign(CENTER, CENTER);
     rectMode(CENTER);
     background(0, 0, 0);
@@ -89,62 +85,59 @@ void stateMenu() {
     }
 }
 void statePlay() {
-  if (mode.equals("NORMAL")) {  
-      textSize(64);
-      textAlign(CENTER, CENTER);
-      rectMode(CENTER);
-      background(0, 0, 0);
-      text("Select Difficulty", width/2, height/2-100);
-      textSize(20);
-      if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2+25 <= mouseY && mouseY <= height/2+75))
-        fill(25, 25, 112);
-      else 
+  while (difficulty == null){
+    if (mode.equals("NORMAL")) {  
+        textSize(64);
+        textAlign(CENTER, CENTER);
+        rectMode(CENTER);
+        background(0, 0, 0);
+        text("Select Difficulty", width/2, height/2-100);
+        textSize(20);
+        if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2+25 <= mouseY && mouseY <= height/2+75))
+          fill(25, 25, 112);
+        else 
+          fill(255);
+        //rect(width/2, height/2 + 50, 200, 50);
+        text("Noob", width/2, height/2+50);
+        if ((width/2 - 100 <= mouseX && mouseX <= width/2+100) && (height/2+100 <= mouseY && mouseY <= height/2+150))
+          fill(104, 34, 139);
+        else 
+          fill(255);
+        //rect(width/2, height/2 + 125, 200, 50);
+        text("Hard", width/2, height/2+125);
+        if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2+175 <= mouseY && mouseY <= height/2+225))
+          fill(255, 0, 255);
+        else 
+          fill(255);
+        //rect(width/2, height/2 + 200, 200, 50);
+        text("Impossible", width/2, height/2+200);
         fill(255);
-      //rect(width/2, height/2 + 50, 200, 50);
-      text("Noob", width/2, height/2+50);
-      if ((width/2 - 100 <= mouseX && mouseX <= width/2+100) && (height/2+100 <= mouseY && mouseY <= height/2+150))
-        fill(104, 34, 139);
-      else 
+        if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2+250 <= mouseY && mouseY <= height/2+300))
+          fill(192,192,192);
+        else
+          fill(255);
+        text("Back", width/2, height/2+275);
         fill(255);
-      //rect(width/2, height/2 + 125, 200, 50);
-      text("Hard", width/2, height/2+125);
-      if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2+175 <= mouseY && mouseY <= height/2+225))
-        fill(255, 0, 255);
-      else 
-        fill(255);
-      //rect(width/2, height/2 + 200, 200, 50);
-      text("Impossible", width/2, height/2+200);
-      fill(255);
-      if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2+250 <= mouseY && mouseY <= height/2+300))
-        fill(192,192,192);
-      else
-        fill(255);
-      text("Back", width/2, height/2+275);
-      fill(255);
-
-      if (mousePressed && mouseButton == LEFT) {
-        currX = mouseX;
-        currY = mouseY;
-        if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+25 <= currY && currY <= height/2+75))
-          difficulty = "NOOB";
-        else if ((width/2 - 100 <= currX && currX <= width/2+100) && (height/2+100 <= currY && currY <= height/2+150))  
-          difficulty = "HARD";
-        else if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+175 <= currY && currY <= height/2+225))
-          difficulty = "IMPOSSIBLE";
-        else if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+225 <= currY && currY <= height/2+300))
-          state = "MENU";
+  
+        if (mousePressed && mouseButton == LEFT) {
+          currX = mouseX;
+          currY = mouseY;
+          if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+25 <= currY && currY <= height/2+75))
+            difficulty = "NOOB";
+          else if ((width/2 - 100 <= currX && currX <= width/2+100) && (height/2+100 <= currY && currY <= height/2+150))  
+            difficulty = "HARD";
+          else if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+175 <= currY && currY <= height/2+225))
+            difficulty = "IMPOSSIBLE";
+          else if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+225 <= currY && currY <= height/2+300))
+            state = "MENU";
+        }
       }
     }
+    //code that create screen for playing
 }
+
 void stateOptions() {
-<<<<<<< HEAD
-  background(255);
-  Word test = new Word(100,100,"TEST", 64);
-  test.setHighlight("TE");
-  test.display();
-=======
   println(typeProgress);
->>>>>>> origin/master
 }
 
 void stateCredits() {
