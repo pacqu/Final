@@ -178,6 +178,7 @@ void stateOptions() {
   //dropCount++;
     
   for (int i = 0; i < onScreen.size(); i++){
+    onScreen.get(i).setHighlight(typeProgress);
     fall(onScreen.get(i));
     onScreen.get(i).display();
   }
@@ -243,7 +244,7 @@ void setToDrop(){
 
 void drop(){
   String curr = (String) toDrop.dequeue();
-  Word currWord = new Word(random(width), 100, curr, 16);
+  Word currWord = new Word(random(50, width - 125), 100 + random(50), curr, 16);
   onScreen.add(currWord);
   //100 to be changed, should be start of "drop region"
   int rem = (int) random(allWords.size());
@@ -268,11 +269,12 @@ void keyPressed(){
      typeProgress = typeProgress.toLowerCase();
   } 
   else if (key == BACKSPACE){
-    typeProgress = typeProgress.substring(0,typeProgress.length() - 1);
+    if (typeProgress.length() > 0)
+      typeProgress = typeProgress.substring(0,typeProgress.length() - 1);
   }
   else if (key == ENTER || key == RETURN){
      for (int i = 0; i < onScreen.size(); i++){
-       if (onScreen.get(i).equals(typeProgress)) {
+       if ((onScreen.get(i)).getTxt().equals(typeProgress)) {
          onScreen.remove(i);
          score += 1; //This part changes depending on how we keep track of score
        }
