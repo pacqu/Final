@@ -200,7 +200,8 @@ void setToDrop(){
   getAllWords();
   for (int i = 0; i < 5; i++){
     int rem = (int) random(allWords.size());
-    String en = allWords.remove(rem);
+    String en = allWords.get(rem);
+    allWords.remove(rem);
     toDrop.enqueue(en);
   }
 }
