@@ -18,8 +18,9 @@ Queue toDrop;
 Stack mostRecent;
 int currX;
 int currY;
-long previousMillis = 0;
+long completeM = 0;
 int dropCount = 0;
+float completeX,completeY;
 
 void setup() {
   size(750,750);
@@ -162,14 +163,19 @@ void stateOptions() {
   fill(0,102,153);
   textSize(25);
   text("Typing:",55, 655);
-  
+  text("Score", 655, 655);
+  text(score,655,700);
+  if ((currentMillis-completeM) <= 400)
+    text("+1", completeX,completeY);
   textMode(CENTER);
   textSize(50);
   text(typeProgress, 277.5, 692.5);
   getAllWords();
   if (onScreen.size() < 5) {
-    setToDrop();
-    drop();
+    if ((int)random(50) == 4) {
+      setToDrop();
+      drop();
+    }
   }
   
   //if (((currentMillis - previousMillis) & 1) == 0) {
@@ -273,13 +279,21 @@ void keyPressed(){
       typeProgress = typeProgress.substring(0,typeProgress.length() - 1);
   }
   else if (key == ENTER || key == RETURN){
+     float m = millis();
      for (int i = 0; i < onScreen.size(); i++){
        if ((onScreen.get(i)).getTxt().equals(typeProgress)) {
-         onScreen.remove(i);
+         completeX = onScreen.get(i).x + 40;
+         completeY = onScreen.get(i).y + 20;
+         completeM = millis();
+         onScreen.remove(i); 
          score += 1; //This part changes depending on how we keep track of score
        }
      }
+     typeProgress = "";
   }
+  
  
 }
+
+
 
