@@ -143,8 +143,10 @@ void stateOptions() {
   getAllWords();
   setToDrop();
   drop();
-  for (int i = 0; i < onScreen.size(); i++)
+  for (int i = 0; i < onScreen.size(); i++){
     fall(onScreen.get(i));
+    onScreen.get(i).display();
+  }
 }
 
 void stateCredits() {
@@ -210,7 +212,9 @@ void drop(){
   Word currWord = new Word(random(width), 100, curr, 16);
   onScreen.add(currWord);
   //100 to be changed, should be start of "drop region"
-  toDrop.enqueue(allWords.remove(random(allWords.size())));
+  int rem = (int) random(allWords.size());
+  String en = allWords.remove(rem);
+  toDrop.enqueue(en);
 }
   
   //fall: input a Word object, changes y-coordinate

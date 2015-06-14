@@ -11,7 +11,8 @@ class Word {
     x = cx;
     y = cy;
     txt = t;
-    txtSize = ts;  
+    txtSize = ts;
+    highlight = "";  
   }
   
   void setHighlight(String progress) {
