@@ -160,6 +160,9 @@ void stateOptions() {
   vertex(555, 745);
   endShape(CLOSE);
   fill(0,102,153);
+  textSize(25);
+  text("Typing:",55, 655);
+  
   textMode(CENTER);
   textSize(50);
   text(typeProgress, 277.5, 692.5);
@@ -168,11 +171,6 @@ void stateOptions() {
     setToDrop();
     drop();
   }
-  textSize(20);
-  fill(100);
-  text("Typing:", 75, 625);
-  text(typeProgress,75,650);
-  println(typeProgress);
   
   //if (((currentMillis - previousMillis) & 1) == 0) {
   //fall(onScreen.get(dropCount));
@@ -259,28 +257,13 @@ void fall(Word w){
   if (w.getY() <= 200) //WE NEED TO DEFINE BOUNDS OF 'FALLING' REGION
     //whatever penalties for not getting word in time
     return;
-<<<<<<< HEAD
   else if (w.getY() > 600)
     onScreen.remove(w);
 }
-  //keyPressed:
-void keyPressed(){ 
-  if ((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z') || (key == ' ')){
-     typeProgress += key;
-     typeProgress = typeProgress.toLowerCase();
-   } 
-  else if ( keyCode == BACKSPACE ) 
-    if (! typeProgress.equals(""))
-      typeProgress = typeProgress.substring(0,typeProgress.length()-1);
-   
-  else if (key == ENTER || key == RETURN)
-=======
-  else if (w.getY() >= 600)
-    onScreen.remove(w);
-}
+ 
   //keyPressed:
 void keyPressed(){
-  if ((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z')){
+  if ((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z') || (key == ' ')){
      typeProgress += key;
      typeProgress = typeProgress.toLowerCase();
   } 
@@ -288,17 +271,13 @@ void keyPressed(){
     typeProgress = typeProgress.substring(0,typeProgress.length() - 1);
   }
   else if (key == ENTER || key == RETURN){
->>>>>>> origin/master
      for (int i = 0; i < onScreen.size(); i++){
        if (onScreen.get(i).equals(typeProgress)) {
          onScreen.remove(i);
          score += 1; //This part changes depending on how we keep track of score
        }
      }
-<<<<<<< HEAD
-=======
-     typeProgress = "";
   }
->>>>>>> origin/master
+ 
 }
 
