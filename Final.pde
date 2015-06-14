@@ -10,7 +10,7 @@ float time;
 String state; //"MENU", "PLAY", "OPTIONS", "CREDITS"
 String difficulty; //"NOOB", "HARD", "IMPOSSIBLE"
 String mode = "NORMAL";
-String typeProgress = "";
+String typeProgress;
 String wordFile;
 ArrayList<String> allWords;
 ArrayList<Word> onScreen;
@@ -168,12 +168,16 @@ void stateOptions() {
     setToDrop();
     drop();
   }
+  textSize(20);
+  fill(100);
+  text("Typing:", 75, 625);
+  text(typeProgress,75,650);
+  println(typeProgress);
+  
   //if (((currentMillis - previousMillis) & 1) == 0) {
   //fall(onScreen.get(dropCount));
   //onScreen.get(dropCount).display();
   //dropCount++;
-    
- 
     
   for (int i = 0; i < onScreen.size(); i++){
     fall(onScreen.get(i));
@@ -255,6 +259,7 @@ void fall(Word w){
   if (w.getY() <= 200) //WE NEED TO DEFINE BOUNDS OF 'FALLING' REGION
     //whatever penalties for not getting word in time
     return;
+<<<<<<< HEAD
   else if (w.getY() > 600)
     onScreen.remove(w);
 }
@@ -269,11 +274,31 @@ void keyPressed(){
       typeProgress = typeProgress.substring(0,typeProgress.length()-1);
    
   else if (key == ENTER || key == RETURN)
+=======
+  else if (w.getY() >= 600)
+    onScreen.remove(w);
+}
+  //keyPressed:
+void keyPressed(){
+  if ((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z')){
+     typeProgress += key;
+     typeProgress = typeProgress.toLowerCase();
+  } 
+  else if (key == BACKSPACE){
+    typeProgress = typeProgress.substring(0,typeProgress.length() - 1);
+  }
+  else if (key == ENTER || key == RETURN){
+>>>>>>> origin/master
      for (int i = 0; i < onScreen.size(); i++){
        if (onScreen.get(i).equals(typeProgress)) {
          onScreen.remove(i);
          score += 1; //This part changes depending on how we keep track of score
        }
      }
+<<<<<<< HEAD
+=======
+     typeProgress = "";
+  }
+>>>>>>> origin/master
 }
 
