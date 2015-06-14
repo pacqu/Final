@@ -25,7 +25,7 @@ void setup() {
   size(750,750);
   state = "MENU";
   wordFile = "words.txt";
-  typeProgress = "a";
+  typeProgress = "";
   onScreen = new ArrayList<Word>();
   toDrop = new Queue();
 }
@@ -143,6 +143,26 @@ void statePlay() {
 void stateOptions() {
   long currentMillis = millis();
   background(0);
+  fill(255,255,255);
+  stroke(0,255,0);
+  strokeWeight(10);
+  beginShape();
+  vertex(5, 640);
+  vertex(545, 640);
+  vertex(545, 745);
+  vertex(5, 745);
+  endShape(CLOSE);
+  stroke(255,0,0);
+  beginShape();
+  vertex(555, 640);
+  vertex(745, 640);
+  vertex(745, 745);
+  vertex(555, 745);
+  endShape(CLOSE);
+  fill(0,102,153);
+  textMode(CENTER);
+  textSize(50);
+  text(typeProgress, 277.5, 692.5);
   getAllWords();
   if (onScreen.size() < 5) {
     setToDrop();
@@ -235,15 +255,19 @@ void fall(Word w){
   if (w.getY() <= 200) //WE NEED TO DEFINE BOUNDS OF 'FALLING' REGION
     //whatever penalties for not getting word in time
     return;
-  else if (w.getY() > 700)
+  else if (w.getY() > 600)
     onScreen.remove(w);
 }
   //keyPressed:
-void keyPressed(){
-   if ((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z')){
+void keyPressed(){ 
+  if ((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z') || (key == ' ')){
      typeProgress += key;
      typeProgress = typeProgress.toLowerCase();
    } 
+  else if ( keyCode == BACKSPACE ) 
+    if (! typeProgress.equals(""))
+      typeProgress = typeProgress.substring(0,typeProgress.length()-1);
+   
   else if (key == ENTER || key == RETURN)
      for (int i = 0; i < onScreen.size(); i++){
        if (onScreen.get(i).equals(typeProgress)) {
@@ -251,6 +275,5 @@ void keyPressed(){
          score += 1; //This part changes depending on how we keep track of score
        }
      }
-     typeProgress = "";
 }
 
