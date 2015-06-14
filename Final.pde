@@ -18,6 +18,8 @@ Queue toDrop;
 Stack mostRecent;
 int currX;
 int currY;
+long previousMillis = 0;
+int dropCount = 0;
 
 void setup() {
   size(750,750);
@@ -139,10 +141,20 @@ void statePlay() {
 }
 
 void stateOptions() {
+  long currentMillis = millis();
   background(0);
   getAllWords();
-  setToDrop();
-  drop();
+  if (onScreen.size() < 5) {
+    setToDrop();
+    drop();
+  }
+  //if (((currentMillis - previousMillis) & 1) == 0) {
+  //fall(onScreen.get(dropCount));
+  //onScreen.get(dropCount).display();
+  //dropCount++;
+    
+ 
+    
   for (int i = 0; i < onScreen.size(); i++){
     fall(onScreen.get(i));
     onScreen.get(i).display();
@@ -219,10 +231,12 @@ void drop(){
   
   //fall: input a Word object, changes y-coordinate
 void fall(Word w){
-  w.addToY(50);
+  w.addToY(.5);
   if (w.getY() <= 200) //WE NEED TO DEFINE BOUNDS OF 'FALLING' REGION
     //whatever penalties for not getting word in time
     return;
+  else if (w.getY() > 700)
+    onScreen.remove(w);
 }
   //keyPressed:
 void keyPressed(){

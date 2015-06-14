@@ -39,7 +39,7 @@ class Word {
   
   void display() {
     fill(255);
-    textSize(txtSize + 1);
+    textSize(txtSize + 3);
     for (int i = 0; i < highlight.length(); i++)
       text(highlight.charAt(i), x + (i*(txtSize/2)), y);    
     fill(100);
