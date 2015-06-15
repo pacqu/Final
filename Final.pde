@@ -143,18 +143,18 @@ void statePlay() {
         }
     }
     //code that create screen for playing
-    setGame();
+  setGame();
 }
 
 void stateOptions() {
   }
   
-  //if (((currentMillis - previousMillis) & 1) == 0) {
+  /*if (((currentMillis - previousMillis) & 1) == 0) {
   //fall(onScreen.get(dropCount));
   //onScreen.get(dropCount).display();
   //dropCount++;
   }
-}
+}*/
 
 void stateCredits() {
   textSize(64);
@@ -293,5 +293,10 @@ void setGame() {
       setToDrop();
       drop();
     }
+  }
+  for (int i = 0; i < onScreen.size(); i++) {
+    onScreen.get(i).setHighlight(typeProgress);
+    fall(onScreen.get(i));
+    onScreen.get(i).display();
   }
 }
