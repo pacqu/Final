@@ -10,7 +10,7 @@ int startTime;
 
 String state; //"MENU", "PLAY", "OPTIONS", "CREDITS"
 String difficulty; //"NOOB", "HARD", "IMPOSSIBLE"
-String mode = "NORMAL";
+String mode;
 String typeProgress;
 String nextWord;
 String wordFile;
@@ -29,6 +29,7 @@ int lives = 3;
 void setup() {
   size(750, 750);
   state = "MENU";
+  mode = null;
   wordFile = "words.txt";
   typeProgress = "";
   onScreen = new ArrayList<Word>();
@@ -57,15 +58,15 @@ void stateMenu() {
   textAlign(CENTER, CENTER);
   rectMode(CENTER);
   background(0, 0, 0);
-  fill(0, 255, 0);
-  text("This game", width/2, height/2-100);
-  textSize(20);
-  if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2+25 <= mouseY && mouseY <= height/2+75))
+  fill(255, 223, 0);
+  text("Typeractive", width/2, height/2-100);
+  textSize(50);
+  if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2-25 <= mouseY && mouseY <= height/2+25))
     fill(0, 0, 255);
   else 
     fill(255);
   //rect(width/2, height/2 + 50, 200, 50);
-  text("Play", width/2, height/2+50);
+  text("Play", width/2, height/2);
   if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2+100 <= mouseY && mouseY <= height/2+150))
     fill(255, 0, 255);
   else 
@@ -77,7 +78,7 @@ void stateMenu() {
   if (mousePressed && mouseButton == LEFT) {
     currX = mouseX;
     currY = mouseY;
-    if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+25 <= currY && currY <= height/2+75))
+    if ((width/2-100 <= currX && currX <= width/2+100) && (height/2 <= currY && currY <= height/2+25))
       state = "PLAY";
     else if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+100 <= currY && currY <= height/2+150))
       state = "CREDITS";
@@ -85,68 +86,45 @@ void stateMenu() {
 }
 
 void statePlay() {
-  while (difficulty == null) {
-    if (mode.equals("NORMAL")) {  
-      textSize(64);
-      textAlign(CENTER, CENTER);
-      rectMode(CENTER);
-      background(0, 0, 0);
-      text("Select Difficulty", width/2, height/2-100);
-      textSize(20);
-      if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2+25 <= mouseY && mouseY <= height/2+75))
-        fill(25, 25, 112);
-      else 
-        fill(255);
-      //rect(width/2, height/2 + 50, 200, 50);
-      text("Noob", width/2, height/2+50);
-      if ((width/2 - 100 <= mouseX && mouseX <= width/2+100) && (height/2+100 <= mouseY && mouseY <= height/2+150))
-        fill(104, 34, 139);
-      else 
-        fill(255);
-      //rect(width/2, height/2 + 125, 200, 50);
-      text("Hard", width/2, height/2+125);
-      if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2+175 <= mouseY && mouseY <= height/2+225))
-        fill(255, 0, 255);
-      else 
-        fill(255);
-      //rect(width/2, height/2 + 200, 200, 50);
-      text("Impossible", width/2, height/2+200);
+  if (mode == null) {
+    textSize(64);
+    textAlign(CENTER, CENTER);
+    rectMode(CENTER);
+    background(0, 0, 0);
+    textSize(54);
+    text("Select Mode", width/2, height/2-200);
+    if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2-75 <= mouseY && mouseY <= height/2-25))
+      fill(25, 25, 112);
+    else 
       fill(255);
-      if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2+250 <= mouseY && mouseY <= height/2+300))
-        fill(192, 192, 192);
-      else
-        fill(255);
-      text("Back", width/2, height/2+275);
+    text("Timed", width/2, height/2-50);
+    if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2+75 <= mouseY && mouseY <= height/2+125))
+      fill(255, 0, 255);
+    else 
       fill(255);
+    text("Lives", width/2, height/2+100);
+    fill(255);
+    if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2+225 <= mouseY && mouseY <= height/2+275))
+      fill(192, 192, 192);
+    else
+      fill(255);
+    textSize(50);
+    text("Back", width/2, height/2+250);
+    fill(255);
 
-      if (mousePressed && mouseButton == LEFT) {
-        currX = mouseX;
-        currY = mouseY;
-        if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+25 <= currY && currY <= height/2+75))
-          difficulty = "NOOB";
-        else if ((width/2 - 100 <= currX && currX <= width/2+100) && (height/2+100 <= currY && currY <= height/2+150))  
-          difficulty = "HARD";
-        else if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+175 <= currY && currY <= height/2+225))
-          difficulty = "IMPOSSIBLE";
-        else if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+225 <= currY && currY <= height/2+300))
-          state = "MENU";
-      }
-      for (int i = 0; i < onScreen.size (); i++) {
-        onScreen.get(i).setHighlight(typeProgress);
-        fall(onScreen.get(i));
-        onScreen.get(i).display();
-      }
+    if (mousePressed && mouseButton == LEFT) {
+      currX = mouseX;
+      currY = mouseY;
+      if ((width/2-100 <= currX && currX <= width/2+100) && (height/2-75 <= currY && currY <= height/2-25))
+        mode = "TIMED";
+      else if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+75 <= currY && currY <= height/2+125))
+        mode = "LIVES";
+      else if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+225 <= currY && currY <= height/2+275))
+        state = "MENU";
     }
-    //code that create screen for playing
-  }
-  setGame();
+  } else
+    setGame();
 }
-
-/*if (((currentMillis - previousMillis) & 1) == 0) 
- //fall(onScreen.get(dropCount));
- //onScreen.get(dropCount).display();
- //dropCount++;
- */
 
 void stateCredits() {
   textSize(64);
@@ -294,8 +272,8 @@ void setGame() {
     setToDrop();
     textSize(14);
     fill(255);
-    text("Next Word to Drop: " + toDrop.peek(),500,15);
-    text("Latest Word Typed: " + mostRecent.peek(),500,30);
+    text("Next Word to Drop: " + toDrop.peek(), 500, 15);
+    text("Latest Word Typed: " + mostRecent.peek(), 500, 30);
     if (onScreen.size() < 5) {
       drop();
     } 
@@ -317,40 +295,36 @@ void setGame() {
       state = "END";
       println(state);
     }
-}
-else {
+  } else {
     long currentMillis = millis();
     background(0);
     if (lives == 3) {
-    stroke(136,136,136);
-    line(250,25,275,50);
-    line(250,50,275,25);
-    line(300,25,325,50);
-    line(300,50,325,25);
-    line(350,25,375,50);
-    line(350,50,375,25);
-  }
-  else if (lives == 2) {
-    stroke(136,136,136);
-    line(300,25,325,50);
-    line(300,50,325,25);
-    line(350,25,375,50);
-    line(350,50,375,25);
-    stroke(255,0,0);
-    line(250,25,275,50);
-    line(250,50,275,25);
-
-  }
-  else if (lives == 1) {
-    stroke(255,0,0);
-    line(250,25,275,50);
-    line(250,50,275,25);
-    line(300,25,325,50);
-    line(300,50,325,25);
-    stroke(136,136,136);
-    line(350,25,375,50);
-    line(350,50,375,25);
-  } 
+      stroke(136, 136, 136);
+      line(250, 25, 275, 50);
+      line(250, 50, 275, 25);
+      line(300, 25, 325, 50);
+      line(300, 50, 325, 25);
+      line(350, 25, 375, 50);
+      line(350, 50, 375, 25);
+    } else if (lives == 2) {
+      stroke(136, 136, 136);
+      line(300, 25, 325, 50);
+      line(300, 50, 325, 25);
+      line(350, 25, 375, 50);
+      line(350, 50, 375, 25);
+      stroke(255, 0, 0);
+      line(250, 25, 275, 50);
+      line(250, 50, 275, 25);
+    } else if (lives == 1) {
+      stroke(255, 0, 0);
+      line(250, 25, 275, 50);
+      line(250, 50, 275, 25);
+      line(300, 25, 325, 50);
+      line(300, 50, 325, 25);
+      stroke(136, 136, 136);
+      line(350, 25, 375, 50);
+      line(350, 50, 375, 25);
+    } 
 
     fill(255, 255, 255);
     stroke(0, 255, 0);
@@ -383,8 +357,8 @@ else {
     setToDrop();
     textSize(14);
     fill(255);
-    text("Next Word to Drop: " + toDrop.peek(),500,15);
-    text("Latest Word Typed: " + mostRecent.peek(),500,30);
+    text("Next Word to Drop: " + toDrop.peek(), 500, 15);
+    text("Latest Word Typed: " + mostRecent.peek(), 500, 30);
     if (onScreen.size() < 5) {
       drop();
     } 
@@ -400,8 +374,7 @@ else {
       state = "END";
       println(state);
     }
-    
-    }
+  }
 }
 
 
@@ -419,13 +392,13 @@ void stateEnd() {
   else 
     fill(255);
   //rect(width/2, height/2 + 50, 200, 50);
-  text("Play", width/2, height/2+50);
-  if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2+100 <= mouseY && mouseY <= height/2+150))
+  text("Play Again", width/2, height/2+50);
+  if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2+150 <= mouseY && mouseY <= height/2+200))
     fill(255, 0, 255);
   else 
     fill(255);
   //rect(width/2, height/2 + 200, 200, 50);
-  text("Menu", width/2, height/2+125);
+  text("Menu", width/2, height/2+175);
   fill(255);
   String choose = null;
   if (mousePressed && mouseButton == LEFT) {
@@ -433,7 +406,7 @@ void stateEnd() {
     currY = mouseY;
     if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+25 <= currY && currY <= height/2+75))
       choose = "PLAY";
-    else if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+100 <= currY && currY <= height/2+150))
+    else if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+150 <= currY && currY <= height/2+200))
       choose = "MENU";
     if (choose != null) {
       startTime = 0;
@@ -442,7 +415,9 @@ void stateEnd() {
       toDrop = new Queue();
       mostRecent = new Stack();
       score = 0;
-      typeProgress = "";  
+      typeProgress = ""; 
+      lives = 3;
+      mode = null; 
       state = choose;
     }
   }
