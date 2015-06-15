@@ -6,6 +6,7 @@ int numberOfWords;
 int score; //1 per word
 
 float time;
+int startTime;
 
 String state; //"MENU", "PLAY", "OPTIONS", "CREDITS"
 String difficulty; //"NOOB", "HARD", "IMPOSSIBLE"
@@ -39,6 +40,10 @@ void draw() {
     stateMenu();
   } 
   else if (state.equals("PLAY")) {
+    if (startTime == 0){
+      startTime = second() + 1;
+      time = 60;
+    }
     statePlay();
     /*
     else if (mode.equals("TIMED"))
@@ -252,42 +257,50 @@ void keyPressed(){
   }
 }
 void setGame() {
-  long currentMillis = millis();
-  background(0);
-  fill(255,255,255);
-  stroke(0,255,0);
-  strokeWeight(10);
-  beginShape();
-  vertex(5, 640);
-  vertex(545, 640);
-  vertex(545, 745);
-  vertex(5, 745);
-  endShape(CLOSE);
-  stroke(255,0,0);
-  beginShape();
-  vertex(555, 640);
-  vertex(745, 640);
-  vertex(745, 745);
-  vertex(555, 745);
-  endShape(CLOSE);
-  fill(0,102,153);
-  textSize(25);
-  text("Typing:",55, 655);
-  text("Score", 655, 655);
-  text(score,655,700);
-  if ((currentMillis-completeM) <= 400)
-    text("+1", completeX,completeY);
-  textMode(CENTER);
-  textSize(50);
-  text(typeProgress, 277.5, 692.5);
-  getAllWords();
-  setToDrop();
-  if (onScreen.size() < 5) {
-      drop();
-    } 
-  for (int i = 0; i < onScreen.size(); i++) {
-    onScreen.get(i).setHighlight(typeProgress);
-    fall(onScreen.get(i));
-    onScreen.get(i).display();
-  }
+    long currentMillis = millis();
+    background(0);
+    fill(255,255,255);
+    stroke(0,255,0);
+    strokeWeight(10);
+    beginShape();
+    vertex(5, 640);
+    vertex(545, 640);
+    vertex(545, 745);
+    vertex(5, 745);
+    endShape(CLOSE);
+    stroke(255,0,0);
+    beginShape();
+    vertex(555, 640);
+    vertex(745, 640);
+    vertex(745, 745);
+    vertex(555, 745);
+    endShape(CLOSE);
+    fill(0,102,153);
+    textSize(25);
+    text("Typing:",55, 655);
+    text("Score", 655, 655);
+    text(score,655,700);
+    if ((currentMillis-completeM) <= 400)
+      text("+1", completeX,completeY);
+    textMode(CENTER);
+    textSize(50);
+    text(typeProgress, 277.5, 692.5);
+    getAllWords();
+    setToDrop();
+    if (onScreen.size() < 5) {
+        drop();
+      } 
+    for (int i = 0; i < onScreen.size(); i++) {
+      onScreen.get(i).setHighlight(typeProgress);
+      fall(onScreen.get(i));
+      onScreen.get(i).display();
+    }
+    println(startTime);
+    if (second() < startTime)
+      time = 60 - ( (60 + second()) - startTime);
+    else
+      time = 60 - ( second() - startTime);
+    println(time);
+    if (( second() + 1) == startTime) 
+      state = "MENU";
 }
