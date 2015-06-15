@@ -59,6 +59,7 @@ void draw() {
   }
 }
 
+//Use to draw main menu
 void stateMenu() {
   textSize(64);
   textAlign(CENTER, CENTER);
@@ -90,7 +91,7 @@ void stateMenu() {
       state = "CREDITS";
   }
 }
-
+//to draw play options
 void statePlay() {
   if (mode == null) {
     textSize(64);
@@ -129,7 +130,7 @@ void statePlay() {
         state = "MENU";
     }
   } else
-    setGame();
+    setGame(); //creates the game
 }
 
 void stateCredits() {
@@ -155,7 +156,7 @@ void stateCredits() {
       state = "MENU";
   }
 }
-
+//Read in the file to the arraylist
 ArrayList<String> getWords(String fileName) {
   ArrayList<String> re = new ArrayList<String>();
   try {
@@ -239,12 +240,13 @@ void keyPressed() {
         plus = (rem.txt).length();
         score += plus;
         mostRecent.push(rem.txt); 
-        //score += 1; //This part changes depending on how we keep track of score
+        //This part changes depending on how we keep track of score
       }
     }
     typeProgress = "";
   }
 }
+
 void setGame() {
   if (mode.equals("TIMED")) {
     long currentMillis = millis();
@@ -270,14 +272,14 @@ void setGame() {
     text("Timer: " + (int) time, 75, 25);
     fill(0, 102, 153);
     textSize(25);
-    text("Typing:", 55, 655);
+    text("Typing:", 55, 655); 
     text("Score", 655, 655);
     text(score, 655, 700);
     if ((currentMillis-completeM) <= 400)
-      text("+" + plus, completeX, completeY);
+      text("+" + plus, completeX, completeY); //when complete, the point value appears in place of the word
     if ((currentMillis-deleteM) <= 400) {
       fill(255, 70, 70);
-      text("-" +  minus, deleteX, 575);
+      text("-" +  minus, deleteX, 575); //negative point value appears when you miss a word
     }
     fill(0, 102, 153);
     textMode(CENTER);
@@ -431,6 +433,7 @@ void stateEnd() {
       choose = "PLAY";
     else if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+150 <= currY && currY <= height/2+200))
       choose = "MENU";
+    //resets everything
     if (choose != null) {
       startTime = 0;
       allWords = new ArrayList<String>();
