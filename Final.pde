@@ -41,7 +41,7 @@ void draw() {
   } 
   else if (state.equals("PLAY")) {
     if (startTime == 0){
-      startTime = second() + 1;
+      startTime = second();
       time = 60;
     }
     statePlay();
@@ -226,8 +226,10 @@ void fall(Word w){
   if (w.getY() <= 200) //WE NEED TO DEFINE BOUNDS OF 'FALLING' REGION
     //whatever penalties for not getting word in time
     return;
-  else if (w.getY() > 600)
+  else if (w.getY() > 600){
     onScreen.remove(w);
+     score -= (w.txt).length();
+    }
 }
  
   //keyPressed:
@@ -249,8 +251,10 @@ void keyPressed(){
          completeX = onScreen.get(i).x + 40;
          completeY = onScreen.get(i).y + 20;
          completeM = millis();
-         mostRecent.push(onScreen.remove(i)); 
-         score += 1; //This part changes depending on how we keep track of score
+         Word rem = onScreen.remove(i);
+         score += (rem.txt).length();
+         mostRecent.push(rem); 
+         //score += 1; //This part changes depending on how we keep track of score
        }
      }
      typeProgress = ""; 
@@ -275,6 +279,9 @@ void setGame() {
     vertex(745, 745);
     vertex(555, 745);
     endShape(CLOSE);
+    fill(255);
+    textSize(30);
+    text("Timer: " + (int) time, 75, 25);
     fill(0,102,153);
     textSize(25);
     text("Typing:",55, 655);
@@ -297,10 +304,19 @@ void setGame() {
     }
     println(startTime);
     if (second() < startTime)
-      time = 60 - ( (60 + second()) - startTime);
+      time = 60 - ( (60 + second()) - startTime  + 1);
     else
-      time = 60 - ( second() - startTime);
+      time = 60 - ( second() - startTime + 1);
     println(time);
-    if (( second() + 1) == startTime) 
+    if (( second() + 1) == startTime){
+      //put end screen here
+      startTime = 0;
       state = "MENU";
+      allWords = new ArrayList<String>();
+      onScreen = new ArrayList<Word>();
+      toDrop = new Queue();
+      mostRecent = new Stack();
+      score = 0;
+      typeProgress = "";  
+    }
 }
