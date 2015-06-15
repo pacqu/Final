@@ -6,7 +6,6 @@ int numberOfWords;
 int score; //1 per word
 
 float time;
-int startTime;
 
 String state; //"MENU", "PLAY", "OPTIONS", "CREDITS"
 String difficulty; //"NOOB", "HARD", "IMPOSSIBLE"
@@ -24,6 +23,8 @@ int currY;
 long completeM = 0;
 int dropCount = 0;
 float completeX, completeY;
+boolean playing = true;
+int lives = 3;
 
 void setup() {
   size(750, 750);
@@ -39,15 +40,12 @@ void draw() {
   if (state.equals("MENU")) {
     stateMenu();
   } else if (state.equals("PLAY")) {
-    if (startTime == 0) {
-      startTime = second();
-      time = 60;
-    }
     statePlay();
+    /*
+    else if (mode.equals("TIMED"))
+     */
   } else if (state.equals("CREDITS")) {
     stateCredits();
-  } else if (state.equals("END")) {
-    stateEnd();
   }
 }
 
@@ -138,7 +136,107 @@ void statePlay() {
     }
     //code that create screen for playing
   }
-  setGame();
+  fill(0, 102, 153);
+  textSize(25);
+  int a = millis();
+  if (a - completeM <= 400) 
+    text("3",375,375);
+  else if (a - completeM <=800)
+    text("2",375,375);
+  else if (a - completeM <=1200) {
+    text("1",375,375);
+    playing = true;
+  }
+  startGame();
+    /*else {
+      background(0);
+      textSize(50);
+      text("GG" + "\nScore: " + score, 375, 375);
+      text("Back", width/2, height/2+275);
+      fill(255);
+      if (mousePressed && mouseButton == LEFT) {
+        currX = mouseX;
+        currY = mouseY;
+        if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+225 <= currY && currY <= height/2+300)) {
+          state = "MENU";
+          score = 0;
+          lives = 3;
+          onScreen = new ArrayList<Word>();
+        }
+    }
+  }*/
+}
+
+void startGame() {
+  long currentMillis = millis();
+  background(0);
+  if (lives == 3) {
+    stroke(136,136,136);
+    line(300,25,325,50);
+    line(300,50,325,25);
+    line(350,25,375,50);
+    line(350,50,375,25);
+    line(400,25,425,50);
+    line(400,50,425,25);
+  }
+  else if (lives == 2) {
+    stroke(136,136,136);
+    line(350,25,375,50);
+    line(350,50,375,25);
+    line(400,25,425,50);
+    line(400,50,425,25);
+    stroke(255,0,0);
+    line(300,25,325,50);
+    line(300,50,325,25);
+  }
+  else if (lives == 1) {
+    stroke(255,0,0);
+    line(300,25,325,50);
+    line(300,50,325,25);
+    line(350,25,375,50);
+    line(350,50,375,25);
+    stroke(136,136,136);
+    line(400,25,425,50);
+    line(400,50,425,25);
+  } 
+  fill(255, 255, 255);
+  stroke(0, 255, 0);
+  strokeWeight(10);
+  beginShape();
+  vertex(5, 640);
+  vertex(545, 640);
+  vertex(545, 745);
+  vertex(5, 745);
+  endShape(CLOSE);
+  stroke(255, 0, 0);
+  beginShape();
+  vertex(555, 640);
+  vertex(745, 640);
+  vertex(745, 745);
+  vertex(555, 745);
+  endShape(CLOSE);
+  fill(0, 102, 153);
+  textSize(25);
+  text("Typing:", 55, 655);
+  text("Score", 655, 655);
+  text(score, 655, 700);
+  if ((currentMillis-completeM) <= 400)
+    text("+1", completeX, completeY);
+  textMode(CENTER);
+  textSize(50);
+  text(typeProgress, 277.5, 692.5);
+  getAllWords();
+  setToDrop();
+  if (onScreen.size() < 5) {
+    drop();
+  } 
+  if (lives > 0 && playing == true) {
+  for (int i = 0; i < onScreen.size (); i++) {
+    onScreen.get(i).setHighlight(typeProgress);
+    fall(onScreen.get(i));
+    onScreen.get(i).display();
+  }
+  }
 }
 
 /*if (((currentMillis - previousMillis) & 1) == 0) 
@@ -224,7 +322,7 @@ void fall(Word w) {
     return;
   else if (w.getY() > 600) {
     onScreen.remove(w);
-    score -= (w.txt).length();
+    lives--;
   }
 }
 
@@ -239,7 +337,8 @@ void keyPressed() {
   else if (key == BACKSPACE) {
     if (typeProgress.length() > 0)
       typeProgress = typeProgress.substring(0, typeProgress.length() - 1);
-  } else if (key == ENTER || key == RETURN) {
+  } 
+  else if (key == ENTER || key == RETURN) {
     float m = millis();
     for (int i = 0; i < onScreen.size (); i++) {
       if ((onScreen.get(i)).getTxt().equals(typeProgress)) {
@@ -250,11 +349,14 @@ void keyPressed() {
         score += (rem.txt).length();
         mostRecent.push(rem.txt); 
         //score += 1; //This part changes depending on how we keep track of score
+        //mostRecent.push(onScreen.remove(i)); 
+        //score += 1; //This part changes depending on how we keep track of score
       }
     }
     typeProgress = "";
   }
 }
+
 void setGame() {
   long currentMillis = millis();
   background(0);
@@ -312,7 +414,7 @@ void setGame() {
   //println(time);
   if (time <= 0 ) {
     state = "END";
-    println(state);
+    //println(state);
   }
 }
 
