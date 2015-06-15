@@ -171,6 +171,19 @@ void statePlay() {
 void startGame() {
   long currentMillis = millis();
   background(0);
+  stroke(255,0,0);
+  if (lives >= 1) {
+    if (lives >= 2) {
+      if (lives == 3) {
+        line(300,25,325,50);
+        line(300,50,325,25);
+      }
+      line(350,25,375,50);
+      line(350,50,375,25);
+    }
+    line(400,25,425,50);
+    line(400,50,425,25);
+  } 
   fill(255, 255, 255);
   stroke(0, 255, 0);
   strokeWeight(10);
@@ -307,7 +320,8 @@ void keyPressed() {
   else if (key == BACKSPACE) {
     if (typeProgress.length() > 0)
       typeProgress = typeProgress.substring(0, typeProgress.length() - 1);
-  } else if (key == ENTER || key == RETURN) {
+  } 
+  else if (key == ENTER || key == RETURN) {
     float m = millis();
     for (int i = 0; i < onScreen.size (); i++) {
       if ((onScreen.get(i)).getTxt().equals(typeProgress)) {

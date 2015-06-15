@@ -1,14 +1,14 @@
-class Queue{  
+class Queue {  
   DNode<Object> front;
   DNode<Object> back;
   int size;
-  
-  Queue(){
+
+  Queue() {
     front = back = null;
     size = 0;
   }
-    
-  void enqueue(Object o){
+
+  void enqueue(Object o) {
     DNode<Object> newBack = new DNode<Object>(o);
     if (size == 0)
       front = back = newBack;
@@ -18,8 +18,8 @@ class Queue{
     }
     size++;
   }
-  
-  Object dequeue(){
+
+  Object dequeue() {
     if (front == null)
       return null;  
     Object re = front.getData();
@@ -27,12 +27,12 @@ class Queue{
     size--;
     return re;
   }
-    
-  Object peek(){
+
+  Object peek() {
     return front.getData();
   }
-    
-  boolean isEmpty(){
+
+  boolean isEmpty() {
     return size == 0;
   }
 }
