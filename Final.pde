@@ -25,6 +25,7 @@ long completeM = 0;
 int dropCount = 0;
 float completeX, completeY;
 int lives = 3;
+int plus;
 
 void setup() {
   size(750, 750);
@@ -227,7 +228,8 @@ void keyPressed() {
         completeY = onScreen.get(i).y + 20;
         completeM = millis();
         Word rem = onScreen.remove(i);
-        score += (rem.txt).length();
+        plus = (rem.txt).length();
+        score += plus;
         mostRecent.push(rem.txt); 
         //score += 1; //This part changes depending on how we keep track of score
       }
@@ -264,7 +266,7 @@ void setGame() {
     text("Score", 655, 655);
     text(score, 655, 700);
     if ((currentMillis-completeM) <= 400)
-      text("+1", completeX, completeY);
+      text("+" + plus, completeX, completeY);
     textMode(CENTER);
     textSize(50);
     text(typeProgress, 277.5, 692.5);
@@ -293,7 +295,7 @@ void setGame() {
     //println(time);
     if (time <= 0 ) {
       state = "END";
-      println(state);
+      //println(state);
     }
   } else {
     long currentMillis = millis();
@@ -349,7 +351,7 @@ void setGame() {
     text("Score", 655, 655);
     text(score, 655, 700);
     if ((currentMillis-completeM) <= 400)
-      text("+1", completeX, completeY);
+      text("+" + plus, completeX, completeY);
     textMode(CENTER);
     textSize(50);
     text(typeProgress, 277.5, 692.5);
@@ -372,7 +374,7 @@ void setGame() {
     }
     if (lives == 0) {
       state = "END";
-      println(state);
+      //println(state);
     }
   }
 }
