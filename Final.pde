@@ -136,7 +136,11 @@ void statePlay() {
           else if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+225 <= currY && currY <= height/2+300))
             state = "MENU";
         }
-      }
+        for (int i = 0; i < onScreen.size(); i++){
+          onScreen.get(i).setHighlight(typeProgress);
+          fall(onScreen.get(i));
+          onScreen.get(i).display();
+        }
     }
     //code that create screen for playing
     setGame();
@@ -149,11 +153,6 @@ void stateOptions() {
   //fall(onScreen.get(dropCount));
   //onScreen.get(dropCount).display();
   //dropCount++;
-    
-  for (int i = 0; i < onScreen.size(); i++){
-    onScreen.get(i).setHighlight(typeProgress);
-    fall(onScreen.get(i));
-    onScreen.get(i).display();
   }
 }
 
