@@ -30,6 +30,8 @@ int minus;
 long deleteM;
 float deleteX;
 
+float fallRate = .5;
+
 void setup() {
   size(750, 750);
   state = "MENU";
@@ -201,7 +203,7 @@ void drop() {
 
 //fall: input a Word object, changes y-coordinate
 void fall(Word w) {
-  w.addToY(.5);
+  w.addToY(fallRate);
   if (w.getY() <= 200) //WE NEED TO DEFINE BOUNDS OF 'FALLING' REGION
     //whatever penalties for not getting word in time
     return;
@@ -273,8 +275,8 @@ void setGame() {
     text(score, 655, 700);
     if ((currentMillis-completeM) <= 400)
       text("+" + plus, completeX, completeY);
-    if ((currentMillis-deleteM) <= 400){
-      fill(255,70,70);
+    if ((currentMillis-deleteM) <= 400) {
+      fill(255, 70, 70);
       text("-" +  minus, deleteX, 575);
     }
     fill(0, 102, 153);
@@ -384,6 +386,12 @@ void setGame() {
         fall(onScreen.get(i));
       if (i <onScreen.size())
         onScreen.get(i).display();
+    }
+    if (startTime == second() + 1) {
+      fallRate += .05;
+      fill(255);
+      textSize(14);
+      text("Fall Rate increased!", 125, 25);
     }
     if (lives == 0) {
       state = "END";
