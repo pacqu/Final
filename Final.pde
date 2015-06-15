@@ -6,6 +6,7 @@ int numberOfWords;
 int score; //1 per word
 
 float time;
+float startTime;
 
 String state; //"MENU", "PLAY", "OPTIONS", "CREDITS"
 String difficulty; //"NOOB", "HARD", "IMPOSSIBLE"
@@ -40,13 +41,19 @@ void draw() {
   if (state.equals("MENU")) {
     stateMenu();
   } else if (state.equals("PLAY")) {
-    statePlay();
+    if (startTime == 0){
+      startTime = second();
+      time = 60;
+    }
+      statePlay();
     /*
     else if (mode.equals("TIMED"))
      */
   } else if (state.equals("CREDITS")) {
     stateCredits();
   }
+  else if (state.equals("END"))
+    stateEnd();
 }
 
 void stateMenu() {
@@ -407,7 +414,7 @@ void setGame() {
     time = 60 - ( (60 + second()) - startTime  + 1);
   else
     time = 60 - ( second() - startTime + 1);
-  println(time);
+  //println(time);
   if (time <= 0 ) {
     state = "END";
     //println(state);
