@@ -30,6 +30,7 @@ int minus;
 long deleteM;
 float deleteX;
 
+
 float fallRate = .5;
 
 void setup() {
@@ -64,7 +65,8 @@ void stateMenu() {
   textSize(64);
   textAlign(CENTER, CENTER);
   rectMode(CENTER);
-  background(0, 0, 0);
+  PImage img = loadImage("dark.png");
+  background(img);
   fill(255, 223, 0);
   text("Typeractive", width/2, height/2-100);
   textSize(50);
@@ -97,7 +99,8 @@ void statePlay() {
     textSize(64);
     textAlign(CENTER, CENTER);
     rectMode(CENTER);
-    background(0, 0, 0);
+    PImage img = loadImage("dark.png");
+    background(img);
     textSize(54);
     text("Select Mode", width/2, height/2-200);
     if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2-75 <= mouseY && mouseY <= height/2-25))
@@ -137,7 +140,8 @@ void stateCredits() {
   textSize(64);
   textAlign(CENTER, CENTER);
   rectMode(CENTER);
-  background(0, 0, 0);
+  PImage img = loadImage("dark.png");
+  background(img);
   fill(255);
   text("CREDZ", width/2, height/2 - 200);
   textSize(20);
@@ -250,7 +254,8 @@ void keyPressed() {
 void setGame() {
   if (mode.equals("TIMED")) {
     long currentMillis = millis();
-    background(0);
+    PImage img = loadImage("dark.png");
+    background(img);
     fill(255, 255, 255);
     stroke(0, 255, 0);
     strokeWeight(10);
@@ -407,7 +412,8 @@ void setGame() {
 
 void stateEnd() {
   //println("stateEnd called");
-  background(0);
+  PImage img = loadImage("dark.png");
+  background(img);
   fill(255);
   textSize(60);
   text("Your score was:", width/2, 100);
