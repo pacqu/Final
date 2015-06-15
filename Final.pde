@@ -208,7 +208,7 @@ void setToDrop() {
 
 void drop() {
   String curr = (String) toDrop.dequeue();
-  Word currWord = new Word(random(50, width - 125), 100 + random(50), curr, 16);
+  Word currWord = new Word(random(20, width - 200), 100 + random(50), curr, 16);
   onScreen.add(currWord);
   //100 to be changed, should be start of "drop region"
   int rem = (int) random(allWords.size());
@@ -248,7 +248,7 @@ void keyPressed() {
         completeM = millis();
         Word rem = onScreen.remove(i);
         score += (rem.txt).length();
-        mostRecent.push(rem); 
+        mostRecent.push(rem.txt); 
         //score += 1; //This part changes depending on how we keep track of score
       }
     }
@@ -289,6 +289,10 @@ void setGame() {
   text(typeProgress, 277.5, 692.5);
   getAllWords();
   setToDrop();
+  textSize(14);
+  fill(255);
+  text("Next Word to Drop: " + toDrop.peek(),500,15);
+  text("Latest Word Typed: " + mostRecent.peek(),500,30);
   if (onScreen.size() < 5) {
     drop();
   } 
@@ -300,12 +304,12 @@ void setGame() {
     if (i <onScreen.size())
       onScreen.get(i).display();
   }
-  println(startTime);
+  //println(startTime);
   if (second() < startTime)
     time = 60 - ( (60 + second()) - startTime  + 1);
   else
     time = 60 - ( second() - startTime + 1);
-  println(time);
+  //println(time);
   if (time <= 0 ) {
     state = "END";
     println(state);
@@ -313,7 +317,7 @@ void setGame() {
 }
 
 void stateEnd() {
-  println("stateEnd called");
+  //println("stateEnd called");
   background(0);
   fill(255);
   textSize(60);
