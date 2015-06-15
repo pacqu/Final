@@ -139,43 +139,10 @@ void statePlay() {
       }
     }
     //code that create screen for playing
+    setGame();
 }
 
 void stateOptions() {
-  long currentMillis = millis();
-  background(0);
-  fill(255,255,255);
-  stroke(0,255,0);
-  strokeWeight(10);
-  beginShape();
-  vertex(5, 640);
-  vertex(545, 640);
-  vertex(545, 745);
-  vertex(5, 745);
-  endShape(CLOSE);
-  stroke(255,0,0);
-  beginShape();
-  vertex(555, 640);
-  vertex(745, 640);
-  vertex(745, 745);
-  vertex(555, 745);
-  endShape(CLOSE);
-  fill(0,102,153);
-  textSize(25);
-  text("Typing:",55, 655);
-  text("Score", 655, 655);
-  text(score,655,700);
-  if ((currentMillis-completeM) <= 400)
-    text("+1", completeX,completeY);
-  textMode(CENTER);
-  textSize(50);
-  text(typeProgress, 277.5, 692.5);
-  getAllWords();
-  if (onScreen.size() < 5) {
-    if ((int)random(50) == 4) {
-      setToDrop();
-      drop();
-    }
   }
   
   //if (((currentMillis - previousMillis) & 1) == 0) {
@@ -291,9 +258,41 @@ void keyPressed(){
      }
      typeProgress = "";
   }
-  
- 
 }
-
-
-
+void setGame() {
+  long currentMillis = millis();
+  background(0);
+  fill(255,255,255);
+  stroke(0,255,0);
+  strokeWeight(10);
+  beginShape();
+  vertex(5, 640);
+  vertex(545, 640);
+  vertex(545, 745);
+  vertex(5, 745);
+  endShape(CLOSE);
+  stroke(255,0,0);
+  beginShape();
+  vertex(555, 640);
+  vertex(745, 640);
+  vertex(745, 745);
+  vertex(555, 745);
+  endShape(CLOSE);
+  fill(0,102,153);
+  textSize(25);
+  text("Typing:",55, 655);
+  text("Score", 655, 655);
+  text(score,655,700);
+  if ((currentMillis-completeM) <= 400)
+    text("+1", completeX,completeY);
+  textMode(CENTER);
+  textSize(50);
+  text(typeProgress, 277.5, 692.5);
+  getAllWords();
+  if (onScreen.size() < 5) {
+    if ((int)random(50) == 4) {
+      setToDrop();
+      drop();
+    }
+  }
+}
