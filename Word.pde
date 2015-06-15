@@ -55,7 +55,5 @@ class Word {
     for (int j = highlight.length (); j < txt.length(); j++)
       text(txt.charAt(j), x + (j* ((txtSize/2) + 5)), y);
   }
-
- 
 }
 

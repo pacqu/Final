@@ -23,10 +23,10 @@ int currX;
 int currY;
 long completeM = 0;
 int dropCount = 0;
-float completeX,completeY;
+float completeX, completeY;
 
 void setup() {
-  size(750,750);
+  size(750, 750);
   state = "MENU";
   wordFile = "words.txt";
   typeProgress = "";
@@ -38,149 +38,145 @@ void setup() {
 void draw() {
   if (state.equals("MENU")) {
     stateMenu();
-  } 
-  else if (state.equals("PLAY")) {
-    if (startTime == 0){
+  } else if (state.equals("PLAY")) {
+    if (startTime == 0) {
       startTime = second();
       time = 60;
     }
     statePlay();
-    /*
-    else if (mode.equals("TIMED"))
-    */
-  } 
-  
-  else if (state.equals("CREDITS")) {
+  } else if (state.equals("CREDITS")) {
     stateCredits();
+  } else if (state.equals("END")) {
+    stateEnd();
   }
 }
 
 void stateMenu() {
   textSize(64);
-    textAlign(CENTER, CENTER);
-    rectMode(CENTER);
-    background(0, 0, 0);
-    fill(0,255,0);
-    text("This game", width/2, height/2-100);
-    textSize(20);
-    if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2+25 <= mouseY && mouseY <= height/2+75))
-      fill(0, 0, 255);
-    else 
-      fill(255);
-    //rect(width/2, height/2 + 50, 200, 50);
-    text("Play", width/2, height/2+50);
-    if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2+100 <= mouseY && mouseY <= height/2+150))
-      fill(255, 0, 255);
-    else 
-      fill(255);
-    //rect(width/2, height/2 + 200, 200, 50);
-    text("Credits", width/2, height/2+125);
+  textAlign(CENTER, CENTER);
+  rectMode(CENTER);
+  background(0, 0, 0);
+  fill(0, 255, 0);
+  text("This game", width/2, height/2-100);
+  textSize(20);
+  if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2+25 <= mouseY && mouseY <= height/2+75))
+    fill(0, 0, 255);
+  else 
     fill(255);
+  //rect(width/2, height/2 + 50, 200, 50);
+  text("Play", width/2, height/2+50);
+  if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2+100 <= mouseY && mouseY <= height/2+150))
+    fill(255, 0, 255);
+  else 
+    fill(255);
+  //rect(width/2, height/2 + 200, 200, 50);
+  text("Credits", width/2, height/2+125);
+  fill(255);
 
-    if (mousePressed && mouseButton == LEFT) {
-      currX = mouseX;
-      currY = mouseY;
-      if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+25 <= currY && currY <= height/2+75))
-        state = "PLAY";
-      else if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+100 <= currY && currY <= height/2+150))
-        state = "CREDITS";
-    }
+  if (mousePressed && mouseButton == LEFT) {
+    currX = mouseX;
+    currY = mouseY;
+    if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+25 <= currY && currY <= height/2+75))
+      state = "PLAY";
+    else if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+100 <= currY && currY <= height/2+150))
+      state = "CREDITS";
+  }
 }
 
 void statePlay() {
-  while (difficulty == null){
+  while (difficulty == null) {
     if (mode.equals("NORMAL")) {  
-        textSize(64);
-        textAlign(CENTER, CENTER);
-        rectMode(CENTER);
-        background(0, 0, 0);
-        text("Select Difficulty", width/2, height/2-100);
-        textSize(20);
-        if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2+25 <= mouseY && mouseY <= height/2+75))
-          fill(25, 25, 112);
-        else 
-          fill(255);
-        //rect(width/2, height/2 + 50, 200, 50);
-        text("Noob", width/2, height/2+50);
-        if ((width/2 - 100 <= mouseX && mouseX <= width/2+100) && (height/2+100 <= mouseY && mouseY <= height/2+150))
-          fill(104, 34, 139);
-        else 
-          fill(255);
-        //rect(width/2, height/2 + 125, 200, 50);
-        text("Hard", width/2, height/2+125);
-        if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2+175 <= mouseY && mouseY <= height/2+225))
-          fill(255, 0, 255);
-        else 
-          fill(255);
-        //rect(width/2, height/2 + 200, 200, 50);
-        text("Impossible", width/2, height/2+200);
+      textSize(64);
+      textAlign(CENTER, CENTER);
+      rectMode(CENTER);
+      background(0, 0, 0);
+      text("Select Difficulty", width/2, height/2-100);
+      textSize(20);
+      if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2+25 <= mouseY && mouseY <= height/2+75))
+        fill(25, 25, 112);
+      else 
         fill(255);
-        if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2+250 <= mouseY && mouseY <= height/2+300))
-          fill(192,192,192);
-        else
-          fill(255);
-        text("Back", width/2, height/2+275);
+      //rect(width/2, height/2 + 50, 200, 50);
+      text("Noob", width/2, height/2+50);
+      if ((width/2 - 100 <= mouseX && mouseX <= width/2+100) && (height/2+100 <= mouseY && mouseY <= height/2+150))
+        fill(104, 34, 139);
+      else 
         fill(255);
-  
-        if (mousePressed && mouseButton == LEFT) {
-          currX = mouseX;
-          currY = mouseY;
-          if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+25 <= currY && currY <= height/2+75))
-            difficulty = "NOOB";
-          else if ((width/2 - 100 <= currX && currX <= width/2+100) && (height/2+100 <= currY && currY <= height/2+150))  
-            difficulty = "HARD";
-          else if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+175 <= currY && currY <= height/2+225))
-            difficulty = "IMPOSSIBLE";
-          else if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+225 <= currY && currY <= height/2+300))
-            state = "MENU";
-        }
-        for (int i = 0; i < onScreen.size(); i++)  {
-          onScreen.get(i).setHighlight(typeProgress);
-          fall(onScreen.get(i));
-          onScreen.get(i).display();
-        }
+      //rect(width/2, height/2 + 125, 200, 50);
+      text("Hard", width/2, height/2+125);
+      if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2+175 <= mouseY && mouseY <= height/2+225))
+        fill(255, 0, 255);
+      else 
+        fill(255);
+      //rect(width/2, height/2 + 200, 200, 50);
+      text("Impossible", width/2, height/2+200);
+      fill(255);
+      if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2+250 <= mouseY && mouseY <= height/2+300))
+        fill(192, 192, 192);
+      else
+        fill(255);
+      text("Back", width/2, height/2+275);
+      fill(255);
+
+      if (mousePressed && mouseButton == LEFT) {
+        currX = mouseX;
+        currY = mouseY;
+        if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+25 <= currY && currY <= height/2+75))
+          difficulty = "NOOB";
+        else if ((width/2 - 100 <= currX && currX <= width/2+100) && (height/2+100 <= currY && currY <= height/2+150))  
+          difficulty = "HARD";
+        else if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+175 <= currY && currY <= height/2+225))
+          difficulty = "IMPOSSIBLE";
+        else if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+225 <= currY && currY <= height/2+300))
+          state = "MENU";
+      }
+      for (int i = 0; i < onScreen.size (); i++) {
+        onScreen.get(i).setHighlight(typeProgress);
+        fall(onScreen.get(i));
+        onScreen.get(i).display();
+      }
     }
     //code that create screen for playing
   }
-   setGame();
+  setGame();
 }
 
-  /*if (((currentMillis - previousMillis) & 1) == 0) 
-  //fall(onScreen.get(dropCount));
-  //onScreen.get(dropCount).display();
-  //dropCount++;
+/*if (((currentMillis - previousMillis) & 1) == 0) 
+ //fall(onScreen.get(dropCount));
+ //onScreen.get(dropCount).display();
+ //dropCount++;
  */
 
 void stateCredits() {
   textSize(64);
-    textAlign(CENTER, CENTER);
-    rectMode(CENTER);
-    background(0, 0, 0);
+  textAlign(CENTER, CENTER);
+  rectMode(CENTER);
+  background(0, 0, 0);
+  fill(255);
+  text("CREDZ", width/2, height/2 - 200);
+  textSize(20);
+  text("Justin Pacquing", width/2, height/2 - 50);
+  text("Jeffrey Zou", width/2, height/2 );
+  text("Christopher Liang", width/2, height/2 + 50);
+  if ((width/2 - 100 <= mouseX && mouseX <= width/2 + 100) && (height/2 -175 <= mouseY && mouseY <= height/2 -125))
+    fill(0, 0, 255);
+  else 
     fill(255);
-    text("CREDZ", width/2, height/2 - 200);
-    textSize(20);
-    text("Justin Pacquing", width/2, height/2 - 50);
-    text("Jeffrey Zou", width/2, height/2 );
-    text("Christopher Liang", width/2, height/2 + 50);
-    if ((width/2 - 100 <= mouseX && mouseX <= width/2 + 100) && (height/2 -175 <= mouseY && mouseY <= height/2 -125))
-      fill(0, 0, 255);
-    else 
-      fill(255);
-    text("Back", width/2, height/2 - 150);
-    if (mousePressed && mouseButton == LEFT) {
-      currX = mouseX;
-      currY = mouseY;
-      if ((width/2 - 100 <= currX && currX <= width/2 + 100) && (height/2 -200 <= currY && currY <= height/2 -100))
-        state = "MENU";
-    }
+  text("Back", width/2, height/2 - 150);
+  if (mousePressed && mouseButton == LEFT) {
+    currX = mouseX;
+    currY = mouseY;
+    if ((width/2 - 100 <= currX && currX <= width/2 + 100) && (height/2 -200 <= currY && currY <= height/2 -100))
+      state = "MENU";
+  }
 }
 
-ArrayList<String> getWords(String fileName){
+ArrayList<String> getWords(String fileName) {
   ArrayList<String> re = new ArrayList<String>();
-  try{
+  try {
     BufferedReader buffRead = createReader(fileName);
     String a = buffRead.readLine();
-    while (a != null){
+    while (a != null) {
       re.add(a);
       a = buffRead.readLine();
     }
@@ -194,21 +190,21 @@ ArrayList<String> getWords(String fileName){
   return re;
 }
 
-void getAllWords(){
+void getAllWords() {
   allWords = getWords(wordFile);
 }
 
-void setToDrop(){
+void setToDrop() {
   getAllWords();
-  for (int i = 0; i < 5; i++){
+  for (int i = 0; i < 5; i++) {
     int rem = (int) random(allWords.size());
     String en = allWords.remove(rem);
     toDrop.enqueue(en);
     nextWord = en;
   }
 }
-  //drop: takes from Queue and initiates into game
-  //calls to drop are delayed 
+//drop: takes from Queue and initiates into game
+//calls to drop are delayed 
 
 void drop() {
   String curr = (String) toDrop.dequeue();
@@ -219,104 +215,141 @@ void drop() {
   String en = allWords.remove(rem);
   toDrop.enqueue(en);
 }
-  
-  //fall: input a Word object, changes y-coordinate
-void fall(Word w){
+
+//fall: input a Word object, changes y-coordinate
+void fall(Word w) {
   w.addToY(.5);
   if (w.getY() <= 200) //WE NEED TO DEFINE BOUNDS OF 'FALLING' REGION
     //whatever penalties for not getting word in time
     return;
-  else if (w.getY() > 600){
+  else if (w.getY() > 600) {
     onScreen.remove(w);
-     score -= (w.txt).length();
-    }
+    score -= (w.txt).length();
+  }
 }
- 
-  //keyPressed:
-void keyPressed(){
+
+//keyPressed:
+void keyPressed() {
   //Keeps track of your progress
-  if ((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z') || (key == ' ')){
-     typeProgress += key;
-     typeProgress = typeProgress.toLowerCase();
+  if ((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z') || (key == ' ')) {
+    typeProgress += key;
+    typeProgress = typeProgress.toLowerCase();
   } 
   //delete recent letter
-  else if (key == BACKSPACE){
+  else if (key == BACKSPACE) {
     if (typeProgress.length() > 0)
-      typeProgress = typeProgress.substring(0,typeProgress.length() - 1);
-  }
-  else if (key == ENTER || key == RETURN){
-     float m = millis();
-     for (int i = 0; i < onScreen.size(); i++){
-       if ((onScreen.get(i)).getTxt().equals(typeProgress)) {
-         completeX = onScreen.get(i).x + 40;
-         completeY = onScreen.get(i).y + 20;
-         completeM = millis();
-         Word rem = onScreen.remove(i);
-         score += (rem.txt).length();
-         mostRecent.push(rem); 
-         //score += 1; //This part changes depending on how we keep track of score
-       }
-     }
-     typeProgress = ""; 
+      typeProgress = typeProgress.substring(0, typeProgress.length() - 1);
+  } else if (key == ENTER || key == RETURN) {
+    float m = millis();
+    for (int i = 0; i < onScreen.size (); i++) {
+      if ((onScreen.get(i)).getTxt().equals(typeProgress)) {
+        completeX = onScreen.get(i).x + 40;
+        completeY = onScreen.get(i).y + 20;
+        completeM = millis();
+        Word rem = onScreen.remove(i);
+        score += (rem.txt).length();
+        mostRecent.push(rem); 
+        //score += 1; //This part changes depending on how we keep track of score
+      }
+    }
+    typeProgress = "";
   }
 }
 void setGame() {
-    long currentMillis = millis();
-    background(0);
-    fill(255,255,255);
-    stroke(0,255,0);
-    strokeWeight(10);
-    beginShape();
-    vertex(5, 640);
-    vertex(545, 640);
-    vertex(545, 745);
-    vertex(5, 745);
-    endShape(CLOSE);
-    stroke(255,0,0);
-    beginShape();
-    vertex(555, 640);
-    vertex(745, 640);
-    vertex(745, 745);
-    vertex(555, 745);
-    endShape(CLOSE);
-    fill(255);
-    textSize(30);
-    text("Timer: " + (int) time, 75, 25);
-    fill(0,102,153);
-    textSize(25);
-    text("Typing:",55, 655);
-    text("Score", 655, 655);
-    text(score,655,700);
-    if ((currentMillis-completeM) <= 400)
-      text("+1", completeX,completeY);
-    textMode(CENTER);
-    textSize(50);
-    text(typeProgress, 277.5, 692.5);
-    getAllWords();
-    setToDrop();
-    if (onScreen.size() < 5) {
-        drop();
-      } 
-    for (int i = 0; i < onScreen.size(); i++) {
+  long currentMillis = millis();
+  background(0);
+  fill(255, 255, 255);
+  stroke(0, 255, 0);
+  strokeWeight(10);
+  beginShape();
+  vertex(5, 640);
+  vertex(545, 640);
+  vertex(545, 745);
+  vertex(5, 745);
+  endShape(CLOSE);
+  stroke(255, 0, 0);
+  beginShape();
+  vertex(555, 640);
+  vertex(745, 640);
+  vertex(745, 745);
+  vertex(555, 745);
+  endShape(CLOSE);
+  fill(255);
+  textSize(30);
+  text("Timer: " + (int) time, 75, 25);
+  fill(0, 102, 153);
+  textSize(25);
+  text("Typing:", 55, 655);
+  text("Score", 655, 655);
+  text(score, 655, 700);
+  if ((currentMillis-completeM) <= 400)
+    text("+1", completeX, completeY);
+  textMode(CENTER);
+  textSize(50);
+  text(typeProgress, 277.5, 692.5);
+  getAllWords();
+  setToDrop();
+  if (onScreen.size() < 5) {
+    drop();
+  } 
+  for (int i = 0; i < onScreen.size (); i++) {
+    if (i <onScreen.size())
       onScreen.get(i).setHighlight(typeProgress);
+    if (i <onScreen.size())
       fall(onScreen.get(i));
+    if (i <onScreen.size())
       onScreen.get(i).display();
-    }
-    println(startTime);
-    if (second() < startTime)
-      time = 60 - ( (60 + second()) - startTime  + 1);
-    else
-      time = 60 - ( second() - startTime + 1);
-    println(time);
-    if (( second() + 1) == startTime){
-      //put end screen here
+  }
+  println(startTime);
+  if (second() < startTime)
+    time = 60 - ( (60 + second()) - startTime  + 1);
+  else
+    time = 60 - ( second() - startTime + 1);
+  println(time);
+  if (time <= 0 ) {
+    state = "END";
+    println(state);
+  }
+}
+
+void stateEnd() {
+  println("stateEnd called");
+  background(0);
+  fill(255);
+  textSize(60);
+  text("Your score was:", width/2, 100);
+  text(score, width/2, 200);
+  if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2+25 <= mouseY && mouseY <= height/2+75))
+    fill(0, 0, 255);
+  else 
+    fill(255);
+  //rect(width/2, height/2 + 50, 200, 50);
+  text("Play", width/2, height/2+50);
+  if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2+100 <= mouseY && mouseY <= height/2+150))
+    fill(255, 0, 255);
+  else 
+    fill(255);
+  //rect(width/2, height/2 + 200, 200, 50);
+  text("Menu", width/2, height/2+125);
+  fill(255);
+  String choose = null;
+  if (mousePressed && mouseButton == LEFT) {
+    currX = mouseX;
+    currY = mouseY;
+    if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+25 <= currY && currY <= height/2+75))
+      choose = "PLAY";
+    else if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+100 <= currY && currY <= height/2+150))
+      choose = "MENU";
+    if (choose != null) {
       startTime = 0;
-      state = "MENU";
       allWords = new ArrayList<String>();
       onScreen = new ArrayList<Word>();
       toDrop = new Queue();
       mostRecent = new Stack();
       score = 0;
       typeProgress = "";  
+      state = choose;
     }
+  }
 }
+
