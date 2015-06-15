@@ -26,6 +26,9 @@ int dropCount = 0;
 float completeX, completeY;
 int lives = 3;
 int plus;
+int minus;
+long deleteM;
+float deleteX;
 
 void setup() {
   size(750, 750);
@@ -203,8 +206,11 @@ void fall(Word w) {
     //whatever penalties for not getting word in time
     return;
   else if (w.getY() > 600) {
+    deleteM = millis();
+    deleteX = w.getX();
     onScreen.remove(w);
-    score -= (w.txt).length();
+    minus = (w.txt).length();
+    score -= minus;
     lives--;
   }
 }
@@ -267,6 +273,11 @@ void setGame() {
     text(score, 655, 700);
     if ((currentMillis-completeM) <= 400)
       text("+" + plus, completeX, completeY);
+    if ((currentMillis-deleteM) <= 400){
+      fill(255,70,70);
+      text("-" +  minus, deleteX, 575);
+    }
+    fill(0, 102, 153);
     textMode(CENTER);
     textSize(50);
     text(typeProgress, 277.5, 692.5);
@@ -352,6 +363,8 @@ void setGame() {
     text(score, 655, 700);
     if ((currentMillis-completeM) <= 400)
       text("+" + plus, completeX, completeY);
+    if ((currentMillis-deleteM) <= 400)
+      text("-" +  minus, deleteX, 575);
     textMode(CENTER);
     textSize(50);
     text(typeProgress, 277.5, 692.5);

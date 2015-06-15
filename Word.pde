@@ -34,6 +34,10 @@ class Word {
   float getY() {
     return y;
   }
+  
+  float getX(){
+    return x;
+  }
 
   String getTxt() {
     return txt;
