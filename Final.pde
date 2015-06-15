@@ -147,9 +147,8 @@ void statePlay() {
     text("1",375,375);
     playing = true;
   }
-  if (lives > 0 && playing == true)
-      startGame();
-    else {
+  startGame();
+    /*else {
       background(0);
       textSize(50);
       text("GG" + "\nScore: " + score, 375, 375);
@@ -165,22 +164,38 @@ void statePlay() {
           onScreen = new ArrayList<Word>();
         }
     }
-  }
+  }*/
 }
 
 void startGame() {
   long currentMillis = millis();
   background(0);
-  stroke(255,0,0);
-  if (lives >= 1) {
-    if (lives >= 2) {
-      if (lives == 3) {
-        line(300,25,325,50);
-        line(300,50,325,25);
-      }
-      line(350,25,375,50);
-      line(350,50,375,25);
-    }
+  if (lives == 3) {
+    stroke(136,136,136);
+    line(300,25,325,50);
+    line(300,50,325,25);
+    line(350,25,375,50);
+    line(350,50,375,25);
+    line(400,25,425,50);
+    line(400,50,425,25);
+  }
+  else if (lives == 2) {
+    stroke(136,136,136);
+    line(350,25,375,50);
+    line(350,50,375,25);
+    line(400,25,425,50);
+    line(400,50,425,25);
+    stroke(255,0,0);
+    line(300,25,325,50);
+    line(300,50,325,25);
+  }
+  else if (lives == 1) {
+    stroke(255,0,0);
+    line(300,25,325,50);
+    line(300,50,325,25);
+    line(350,25,375,50);
+    line(350,50,375,25);
+    stroke(136,136,136);
     line(400,25,425,50);
     line(400,50,425,25);
   } 
@@ -215,10 +230,12 @@ void startGame() {
   if (onScreen.size() < 5) {
     drop();
   } 
+  if (lives > 0 && playing == true) {
   for (int i = 0; i < onScreen.size (); i++) {
     onScreen.get(i).setHighlight(typeProgress);
     fall(onScreen.get(i));
     onScreen.get(i).display();
+  }
   }
 }
 
