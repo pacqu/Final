@@ -11,7 +11,9 @@ String state; //"MENU", "PLAY", "OPTIONS", "CREDITS"
 String difficulty; //"NOOB", "HARD", "IMPOSSIBLE"
 String mode = "NORMAL";
 String typeProgress;
+String nextWord;
 String wordFile;
+
 ArrayList<String> allWords;
 ArrayList<Word> onScreen;
 Queue toDrop;
@@ -29,6 +31,7 @@ void setup() {
   typeProgress = "";
   onScreen = new ArrayList<Word>();
   toDrop = new Queue();
+  mostRecent = new Stack();
 }
 
 void draw() {
@@ -126,7 +129,7 @@ void statePlay() {
           else if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+225 <= currY && currY <= height/2+300))
             state = "MENU";
         }
-        for (int i = 0; i < onScreen.size(); i++){
+        for (int i = 0; i < onScreen.size(); i++)  {
           onScreen.get(i).setHighlight(typeProgress);
           fall(onScreen.get(i));
           onScreen.get(i).display();
@@ -196,12 +199,13 @@ void setToDrop(){
     int rem = (int) random(allWords.size());
     String en = allWords.remove(rem);
     toDrop.enqueue(en);
+    nextWord = en;
   }
 }
   //drop: takes from Queue and initiates into game
   //calls to drop are delayed 
 
-void drop(){
+void drop() {
   String curr = (String) toDrop.dequeue();
   Word currWord = new Word(random(50, width - 125), 100 + random(50), curr, 16);
   onScreen.add(currWord);
@@ -223,10 +227,12 @@ void fall(Word w){
  
   //keyPressed:
 void keyPressed(){
+  //Keeps track of your progress
   if ((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z') || (key == ' ')){
      typeProgress += key;
      typeProgress = typeProgress.toLowerCase();
   } 
+  //delete recent letter
   else if (key == BACKSPACE){
     if (typeProgress.length() > 0)
       typeProgress = typeProgress.substring(0,typeProgress.length() - 1);
@@ -238,7 +244,7 @@ void keyPressed(){
          completeX = onScreen.get(i).x + 40;
          completeY = onScreen.get(i).y + 20;
          completeM = millis();
-         onScreen.remove(i); 
+         mostRecent.push(onScreen.remove(i)); 
          score += 1; //This part changes depending on how we keep track of score
        }
      }
@@ -277,14 +283,11 @@ void setGame() {
   getAllWords();
   setToDrop();
   if (onScreen.size() < 5) {
-    //if ((int)random(50) == 4) {
       drop();
-    }
-  //}
+    } 
   for (int i = 0; i < onScreen.size(); i++) {
     onScreen.get(i).setHighlight(typeProgress);
     fall(onScreen.get(i));
     onScreen.get(i).display();
   }
 }
-
