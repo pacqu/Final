@@ -41,9 +41,6 @@ void draw() {
     else if (mode.equals("TIMED"))
     */
   } 
-  else if (state.equals("OPTIONS")) {
-    stateOptions();
-  }
   
   else if (state.equals("CREDITS")) {
     stateCredits();
@@ -64,18 +61,12 @@ void stateMenu() {
       fill(255);
     //rect(width/2, height/2 + 50, 200, 50);
     text("Play", width/2, height/2+50);
-    if ((width/2 - 100 <= mouseX && mouseX <= width/2+100) && (height/2+100 <= mouseY && mouseY <= height/2+150))
-      fill(104, 34, 139);
-    else 
-      fill(255);
-    //rect(width/2, height/2 + 125, 200, 50);
-    text("Options", width/2, height/2+125);
-    if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2+175 <= mouseY && mouseY <= height/2+225))
+    if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2+100 <= mouseY && mouseY <= height/2+150))
       fill(255, 0, 255);
     else 
       fill(255);
     //rect(width/2, height/2 + 200, 200, 50);
-    text("Credits", width/2, height/2+200);
+    text("Credits", width/2, height/2+125);
     fill(255);
 
     if (mousePressed && mouseButton == LEFT) {
@@ -83,12 +74,11 @@ void stateMenu() {
       currY = mouseY;
       if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+25 <= currY && currY <= height/2+75))
         state = "PLAY";
-      else if ((width/2 - 100 <= currX && currX <= width/2+100) && (height/2+100 <= currY && currY <= height/2+150))  
-        state = "OPTIONS";
-      else if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+175 <= currY && currY <= height/2+225))
+      else if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+100 <= currY && currY <= height/2+150))
         state = "CREDITS";
     }
 }
+
 void statePlay() {
   while (difficulty == null){
     if (mode.equals("NORMAL")) {  
@@ -143,18 +133,15 @@ void statePlay() {
         }
     }
     //code that create screen for playing
-  setGame();
+    setGame();
+  }
 }
 
-void stateOptions() {
-  }
-  
-  /*if (((currentMillis - previousMillis) & 1) == 0) {
+  /*if (((currentMillis - previousMillis) & 1) == 0) 
   //fall(onScreen.get(dropCount));
   //onScreen.get(dropCount).display();
   //dropCount++;
-  }
-}*/
+ */
 
 void stateCredits() {
   textSize(64);
