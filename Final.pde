@@ -248,7 +248,7 @@ void keyPressed(){
          score += 1; //This part changes depending on how we keep track of score
        }
      }
-     typeProgress = "";
+     typeProgress = ""; 
   }
 }
 void setGame() {
