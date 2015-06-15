@@ -133,8 +133,8 @@ void statePlay() {
         }
     }
     //code that create screen for playing
-    setGame();
   }
+   setGame();
 }
 
   /*if (((currentMillis - previousMillis) & 1) == 0) 
@@ -275,15 +275,16 @@ void setGame() {
   textSize(50);
   text(typeProgress, 277.5, 692.5);
   getAllWords();
+  setToDrop();
   if (onScreen.size() < 5) {
-    if ((int)random(50) == 4) {
-      setToDrop();
+    //if ((int)random(50) == 4) {
       drop();
     }
-  }
+  //}
   for (int i = 0; i < onScreen.size(); i++) {
     onScreen.get(i).setHighlight(typeProgress);
     fall(onScreen.get(i));
     onScreen.get(i).display();
   }
 }
+
