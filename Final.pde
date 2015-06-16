@@ -145,45 +145,51 @@ void setGame() {
     else 
       fill(255);
     text("EXIT", width - 30, 10);
-    if (mousePressed && mouseButton == LEFT)
+    if (mousePressed && mouseButton == LEFT) {
       if ((width >= mouseX && mouseX >= width-60) && (0 <= mouseY && mouseY <= 20))
         state = "END";
-      if ((currentMillis-completeM) <= 400)
+      if ((currentMillis-completeM) <= 400) {
+        fill(0,255,0);
         text("+" + plus, completeX, completeY);
+      }
       if ((currentMillis-deleteM) <= 400) {
         fill(255, 70, 70);
         text("-" +  minus, deleteX, 575);
       }
-      fill(255);
-      textMode(CENTER);
-      textSize(30);
-      text(typeProgress, 277.5, 692.5);
-      getAllWords();
-      setToDrop();
-      textSize(14);
-      fill(255);
-      text("Next Word to Drop: " + toDrop.peek(), 500, 15);
-      if (!mostRecent.isEmpty())
-        text("Latest Word Typed: " + mostRecent.peek(), 500, 30);
-      else 
-        text("Latest Word Typed: ", 500, 30);
-      if (onScreen.size() < 5) {
-        drop();
-      } 
-      for (int i = 0; i < onScreen.size (); i++) {
-        if (i <onScreen.size())
-          onScreen.get(i).setHighlight(typeProgress);
-        if (i <onScreen.size())
-          fall(onScreen.get(i));
-        if (i <onScreen.size())
-          onScreen.get(i).display();
-      }
-      if ((currentMillis-completeM) <= 400)
-        text("+" + plus, completeX, completeY);
-      if ((currentMillis-deleteM) <= 400) {
-        fill(255, 70, 70);
-        text("-" +  minus, deleteX, 575);
-      }
+    }
+    fill(255);
+    textMode(CENTER);
+    textSize(30);
+    text(typeProgress, 277.5, 692.5);
+    getAllWords();
+    setToDrop();
+    textSize(14);
+    fill(255);
+    text("Next Word to Drop: " + toDrop.peek(), 500, 15);
+    if (!mostRecent.isEmpty())
+      text("Latest Word Typed: " + mostRecent.peek(), 500, 30);
+    else 
+      text("Latest Word Typed: ", 500, 30);
+    if (onScreen.size() < 5) {
+      drop();
+    } 
+    for (int i = 0; i < onScreen.size (); i++) {
+      if (i <onScreen.size())
+        onScreen.get(i).setHighlight(typeProgress);
+      if (i <onScreen.size())
+        fall(onScreen.get(i));
+      if (i <onScreen.size())
+        onScreen.get(i).display();
+    }
+    if ((currentMillis-completeM) <= 400) {
+      fill(0, 255, 0);
+      text("+" + plus, completeX, completeY);
+    }
+    if ((currentMillis-deleteM) <= 400) {
+      fill(255, 0, 0);
+      textSize(100);
+      text("X", deleteX, 575);
+    }
     
     //println(startTime);
     if (second() < startTime)
@@ -321,6 +327,7 @@ void setGame() {
     PImage img = loadImage("credz.jpg");
     background(img);
     textSize(100);
+    fill(0);
     text("PAUSED",width/2,height/2);
   }
 }
@@ -449,9 +456,6 @@ void fall(Word w) {
     deleteM = millis();
     deleteX = w.getX();
     onScreen.remove(w);
-    minus = (w.txt).length();
-    if (mode.equals("TIMED"))
-      score -= minus;
     lives--;
   }
 }
@@ -482,15 +486,9 @@ void keyPressed() {
           //score += 1; //This part changes depending on how we keep track of score
         }
       }
+    typeProgress = "";  
     }
-  }
-      typeProgress = "";
-<<<<<<< HEAD
-    } 
     else if (key == ESC) {
-=======
-      if (key == ESC) {
->>>>>>> origin/master
       key = 0;
       if (mode.equals("LIVES")) {
         pause = !pause;
@@ -504,10 +502,6 @@ void keyPressed() {
         //onScreen.get(i).setPause();
     }
   }
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
 
 
 
