@@ -442,34 +442,36 @@ void fall(Word w) {
 //keyPressed:
 void keyPressed() {
   //Keeps track of your progress
-  if ((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z') || (key == ' ')) {
-    typeProgress += key;
-    typeProgress = typeProgress.toLowerCase();
-  } 
-  //delete recent letter
-  else if (key == BACKSPACE) {
-    if (typeProgress.length() > 0)
-      typeProgress = typeProgress.substring(0, typeProgress.length() - 1);
-  } 
-  else if (key == ENTER || key == RETURN) {
-    float m = millis();
-    for (int i = 0; i < onScreen.size (); i++) {
-      if ((onScreen.get(i)).getTxt().equals(typeProgress)) {
-        completeX = onScreen.get(i).x + 40;
-        completeY = onScreen.get(i).y + 20;
-        completeM = millis();
-        Word rem = onScreen.remove(i);
-        plus = (rem.txt).length();
-        score += plus;
-        mostRecent.push(rem.txt); 
-        //score += 1; //This part changes depending on how we keep track of score
+  if (!pause) {
+    if ((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z') || (key == ' ')) {
+      typeProgress += key;
+      typeProgress = typeProgress.toLowerCase();
+    } 
+    //delete recent letter
+    else if (key == BACKSPACE) {
+      if (typeProgress.length() > 0)
+        typeProgress = typeProgress.substring(0, typeProgress.length() - 1);
+    } else if (key == ENTER || key == RETURN) {
+      float m = millis();
+      for (int i = 0; i < onScreen.size (); i++) {
+        if ((onScreen.get(i)).getTxt().equals(typeProgress)) {
+          completeX = onScreen.get(i).x + 40;
+          completeY = onScreen.get(i).y + 20;
+          completeM = millis();
+          Word rem = onScreen.remove(i);
+          plus = (rem.txt).length();
+          score += plus;
+          mostRecent.push(rem.txt); 
+          //score += 1; //This part changes depending on how we keep track of score
+        }
       }
+      typeProgress = "";
+    } else if (key == ESC) {
+      key = 0;
+      pause = !pause;
+      for (int i=0;i<onScreen.size();i++)
+        onScreen.get(i).setPause();
     }
-    typeProgress = "";
-  } 
-  else if (key == ESC) {
-    key = 0;
-    pause = !pause;
   }
 }
 
