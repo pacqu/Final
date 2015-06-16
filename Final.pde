@@ -1,7 +1,7 @@
 //Final Project by Christopher Liang, Justin Pacquing, and Jeffrey Zou
 import java.io.*;
 
-String state,difficulty,mode,typeProgress,nextWord,wordFile,; //"MENU", "PLAY", "OPTIONS", "CREDITS"
+String state,difficulty,mode,typeProgress,nextWord,wordFile; //"MENU", "PLAY", "OPTIONS", "CREDITS"
 int startTime,speed = 1,numberOfWords,score,currX,currY,dropCount = 0,lives = 3,plus,minus,level = 1;
 long completeM = 0,deleteM;
 float time,completeX,completeY,deleteX, fallRate = .5;
@@ -35,7 +35,7 @@ void draw() {
   else if (state.equals("CREDITS")) 
     stateCredits();
   else if (state.equals("END")) 
-    stateEnd();
+    stateE();
 }
 
 void stateMenu() {
@@ -109,10 +109,10 @@ void statePlay() {
     }
   } 
   else
-    setGame();
+    setG();
 }
 
-void setGame() {
+void setG() {
   if (mode.equals("TIMED")) {
     long currentMillis = millis();
     PImage img = loadImage("dark.png");
@@ -307,7 +307,8 @@ void setGame() {
       }
     }
 
-void stateEnd() {
+
+void stateE() {
 //println("stateEnd called");
   PImage img = loadImage("dark.png");
   background(img);
@@ -470,10 +471,9 @@ void keyPressed() {
     key = 0;
     pause = !pause;
   }
-<<<<<<< HEAD
 }
-=======
-}
+
+
 void setGame() {
   if (mode.equals("TIMED")) {
     long currentMillis = millis();
@@ -714,4 +714,4 @@ void stateEnd() {
   }
 }
 
->>>>>>> origin/master
+
