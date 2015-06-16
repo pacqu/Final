@@ -106,14 +106,9 @@ void statePlay() {
       else if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+225 <= currY && currY <= height/2+275))
         state = "MENU";
     }
-<<<<<<< HEAD
   } 
   else
     setGame();
-=======
-  } else
-    setG();
->>>>>>> origin/master
 }
 
 void setGame() {
@@ -153,7 +148,6 @@ void setGame() {
     if (mousePressed && mouseButton == LEFT)
       if ((width >= mouseX && mouseX >= width-60) && (0 <= mouseY && mouseY <= 20))
         state = "END";
-<<<<<<< HEAD
       if ((currentMillis-completeM) <= 400)
         text("+" + plus, completeX, completeY);
       if ((currentMillis-deleteM) <= 400) {
@@ -184,7 +178,6 @@ void setGame() {
         if (i <onScreen.size())
           onScreen.get(i).display();
       }
-=======
     if ((currentMillis-completeM) <= 400)
       text("+" + plus, completeX, completeY);
     if ((currentMillis-deleteM) <= 400) {
@@ -215,7 +208,6 @@ void setGame() {
       if (i <onScreen.size())
         onScreen.get(i).display();
     }
->>>>>>> origin/master
     //println(startTime);
     if (second() < startTime)
       time = 60 - ( (60 + second()) - startTime  + 1);
@@ -225,7 +217,8 @@ void setGame() {
     if (time <= 0 ) 
       state = "END";
     //println(state);
-  } else {
+  } 
+  else {
     long currentMillis = millis();
     PImage img = loadImage("dark.png");
     background(img);
@@ -246,7 +239,8 @@ void setGame() {
       stroke(255, 0, 0);
       line(50, 25, 75, 50);
       line(50, 50, 75, 25);
-    } else if (lives == 1) {
+    } 
+    else if (lives == 1) {
       stroke(255, 0, 0);
       line(50, 25, 75, 50);
       line(50, 50, 75, 25);
@@ -256,8 +250,6 @@ void setGame() {
       line(150, 25, 175, 50);
       line(150, 50, 175, 25);
     } 
-
-<<<<<<< HEAD
       noFill();
       stroke(0, 255, 0);
       strokeWeight(10);
@@ -334,101 +326,24 @@ void setGame() {
           level = 5;  
         if (level != 1)
           fallRate = level * .5 - .4;
-        if (lives == 0) {
+        if (lives == 0) 
           state = "END";
-=======
-    fill(255, 255, 255);
-    stroke(0, 255, 0);
-    strokeWeight(10);
-    beginShape();
-    vertex(5, 640);
-    vertex(545, 640);
-    vertex(545, 745);
-    vertex(5, 745);
-    endShape(CLOSE);
-    stroke(255, 0, 0);
-    beginShape();
-    vertex(555, 640);
-    vertex(745, 640);
-    vertex(745, 745);
-    vertex(555, 745);
-    endShape(CLOSE);
-    fill(255);
-    fill(0, 102, 153);
-    textSize(25);
-    text("Typing:", 55, 655);
-    text("Score", 655, 655);
-    text(score, 655, 700);
-    textMode(CENTER);
-    textSize(50);
-    text(typeProgress, 277.5, 692.5);
+  
     if ((mouseX <= width && mouseX >= width - 60) && (mouseY <= 20 && mouseY >= 0))
       fill(0, 255, 255);
     else 
       fill(255);
     textSize(25);
     text("EXIT", width - 30, 10);
-    if (mousePressed && mouseButton == LEFT)
+    if (mousePressed && mouseButton == LEFT) {
       if ((width >= mouseX && mouseX >= width-60) && (0 <= mouseY && mouseY <= 20))
         state = "END";
-    if ((currentMillis-completeM) <= 400) {
-      fill(0, 255, 0);
-      text("+" + plus, completeX, completeY);
-    }
-    if ((currentMillis-deleteM) <= 400) {
-      fill(255, 0, 0);
-      textSize(100);
-      text("X", deleteX, 575);
-    }
-    getAllWords();
-    setToDrop();
-    textSize(14);
-    fill(255);
-    text("Next Word to Drop: " + toDrop.peek(), 500, 15);
-    if (!mostRecent.isEmpty())
-      text("Latest Word Typed: " + mostRecent.peek(), 500, 30);
-    else 
-      text("Latest Word Typed: ", 500, 30);
-    if (onScreen.size() < 5) {
-      drop();
-    } 
-    for (int i = 0; i < onScreen.size (); i++) {
-      if (i <onScreen.size())
-        onScreen.get(i).setHighlight(typeProgress);
-      if (i <onScreen.size() && !pause)
-        fall(onScreen.get(i));
-      if (i <onScreen.size())
-        onScreen.get(i).display();
-    }
-    if (score < 50) {
-      level = 1;
-      fallRate = .5;
-    } else if (score < 100)
-      level = 2;
-    else if (score < 150)
-      level = 3;
-    else if (score < 200)
-      level = 4;
-    else 
-      level = 5;  
-    if (level != 1)
-      fallRate = level * .5 - .4;
-    if (lives == 0) {
-      state = "END";
->>>>>>> origin/master
-      //println(state);
     }
   }
 }
 
-
-<<<<<<< HEAD
 void stateEnd() {
 //println("stateEnd called");
-=======
-void stateE() {
-  //println("stateEnd called");
->>>>>>> origin/master
   PImage img = loadImage("dark.png");
   background(img);
   fill(255);
@@ -595,246 +510,4 @@ void keyPressed() {
 }
 
 
-<<<<<<< HEAD
-=======
-void setGame() {
-  if (mode.equals("TIMED")) {
-    long currentMillis = millis();
-    PImage img = loadImage("dark.png");
-    background(img);
-    fill(255, 255, 255);
-    stroke(0, 255, 0);
-    strokeWeight(10);
-    beginShape();
-    vertex(5, 640);
-    vertex(545, 640);
-    vertex(545, 745);
-    vertex(5, 745);
-    endShape(CLOSE);
-    stroke(255, 0, 0);
-    beginShape();
-    vertex(555, 640);
-    vertex(745, 640);
-    vertex(745, 745);
-    vertex(555, 745);
-    endShape(CLOSE);
-    fill(255);
-    textSize(30);
-    text("Timer: " + (int) time, 75, 25);
-    fill(0, 102, 153);
-    textSize(25);
-    text("Typing:", 55, 655);
-    text(typeProgress, 277.5, 692.5);
-    text("Score", 655, 655);
-    text(score, 655, 700);
-    if ((mouseX <= width && mouseX >= width - 60) && (mouseY <= 20 && mouseY >= 0))
-      fill(0, 255, 255);
-    else 
-      fill(255);
-    text("EXIT", width - 30, 10);
-    if (mousePressed && mouseButton == LEFT)
-      if ((width >= mouseX && mouseX >= width-60) && (0 <= mouseY && mouseY <= 20))
-        state = "END";
-    if ((currentMillis-completeM) <= 400)
-      text("+" + plus, completeX, completeY);
-    if ((currentMillis-deleteM) <= 400) {
-      fill(255, 70, 70);
-      text("-" +  minus, deleteX, 575);
-    }
-    fill(0, 102, 153);
-    textMode(CENTER);
-    textSize(50);
-    text(typeProgress, 277.5, 692.5);
-    getAllWords();
-    setToDrop();
-    textSize(14);
-    fill(255);
-    text("Next Word to Drop: " + toDrop.peek(), 500, 15);
-    if (!mostRecent.isEmpty())
-      text("Latest Word Typed: " + mostRecent.peek(), 500, 30);
-    else 
-      text("Latest Word Typed: ", 500, 30);
-    if (onScreen.size() < 5) {
-      drop();
-    } 
-    for (int i = 0; i < onScreen.size (); i++) {
-      if (i <onScreen.size())
-        onScreen.get(i).setHighlight(typeProgress);
-      if (i <onScreen.size())
-        fall(onScreen.get(i));
-      if (i <onScreen.size())
-        onScreen.get(i).display();
-    }
-    //println(startTime);
-    if (second() < startTime)
-      time = 60 - ( (60 + second()) - startTime  + 1);
-    else
-      time = 60 - ( second() - startTime + 1);
-    //println(time);
-    if (time <= 0 ) {
-      state = "END";
-      //println(state);
-    }
-  } else {
-    long currentMillis = millis();
-    PImage img = loadImage("dark.png");
-    background(img);
-    if (lives == 3) {
-      stroke(136, 136, 136);
-      line(50, 25, 75, 50);
-      line(50, 50, 75, 25);
-      line(100, 25, 125, 50);
-      line(100, 50, 125, 25);
-      line(150, 25, 175, 50);
-      line(150, 50, 175, 25);
-    } else if (lives == 2) {
-      stroke(136, 136, 136);
-      line(100, 25, 125, 50);
-      line(100, 50, 125, 25);
-      line(150, 25, 175, 50);
-      line(150, 50, 175, 25);
-      stroke(255, 0, 0);
-      line(50, 25, 75, 50);
-      line(50, 50, 75, 25);
-    } else if (lives == 1) {
-      stroke(255, 0, 0);
-      line(50, 25, 75, 50);
-      line(50, 50, 75, 25);
-      line(100, 25, 125, 50);
-      line(100, 50, 125, 25);
-      stroke(136, 136, 136);
-      line(150, 25, 175, 50);
-      line(150, 50, 175, 25);
-    } 
-
-    fill(255, 255, 255);
-    stroke(0, 255, 0);
-    strokeWeight(10);
-    beginShape();
-    vertex(5, 640);
-    vertex(545, 640);
-    vertex(545, 745);
-    vertex(5, 745);
-    endShape(CLOSE);
-    stroke(255, 0, 0);
-    beginShape();
-    vertex(555, 640);
-    vertex(745, 640);
-    vertex(745, 745);
-    vertex(555, 745);
-    endShape(CLOSE);
-    fill(255);
-    fill(0, 102, 153);
-    textSize(25);
-    text("Typing:", 55, 655);
-    text("Score", 655, 655);
-    text(score, 655, 700);
-    if ((mouseX <= width && mouseX >= width - 60) && (mouseY <= 20 && mouseY >= 0))
-      fill(0, 255, 255);
-    else 
-      fill(255);
-    text("EXIT", width - 30, 10);
-    if (mousePressed && mouseButton == LEFT)
-      if ((width >= mouseX && mouseX >= width-60) && (0 <= mouseY && mouseY <= 20))
-        state = "END";
-    if ((currentMillis-completeM) <= 400) {
-      fill(0, 255, 0);
-      text("+" + plus, completeX, completeY);
-    }
-    if ((currentMillis-deleteM) <= 400) {
-      fill(255, 0, 0);
-      textSize(100);
-      text("X", deleteX, 575);
-    }
-    textMode(CENTER);
-    textSize(50);
-    getAllWords();
-    setToDrop();
-    textSize(14);
-    fill(255);
-    text("Next Word to Drop: " + toDrop.peek(), 500, 15);
-    if (!mostRecent.isEmpty())
-      text("Latest Word Typed: " + mostRecent.peek(), 500, 30);
-    else 
-      text("Latest Word Typed: ", 500, 30);
-    if (onScreen.size() < 5) {
-      drop();
-    } 
-    for (int i = 0; i < onScreen.size (); i++) {
-      if (i <onScreen.size())
-        onScreen.get(i).setHighlight(typeProgress);
-      if (i <onScreen.size() && !pause)
-        fall(onScreen.get(i));
-      if (i <onScreen.size())
-        onScreen.get(i).display();
-    }
-    if (score < 50) {
-      level = 1;
-      fallRate = .5;
-    } else if (score < 100)
-      level = 2;
-    else if (score < 150)
-      level = 3;
-    else if (score < 200)
-      level = 4;
-    else 
-      level = 5;  
-    if (level != 1)
-      fallRate = level * .5 - .4;
-
-    if (lives == 0) {
-      state = "END";
-      //println(state);
-    }
-  }
-}
-
-
-
-
-void stateEnd() {
-  //println("stateEnd called");
-  PImage img = loadImage("dark.png");
-  background(img);
-  fill(255);
-  textSize(60);
-  text("Your score was:", width/2, 100);
-  text(score, width/2, 200);
-  if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2+25 <= mouseY && mouseY <= height/2+75))
-    fill(0, 0, 255);
-  else 
-    fill(255);
-  //rect(width/2, height/2 + 50, 200, 50);
-  text("Play Again", width/2, height/2+50);
-  if ((width/2-100 <= mouseX && mouseX <= width/2+100) && (height/2+150 <= mouseY && mouseY <= height/2+200))
-    fill(255, 0, 255);
-  else 
-    fill(255);
-  //rect(width/2, height/2 + 200, 200, 50);
-  text("Menu", width/2, height/2+175);
-  fill(255);
-  String choose = null;
-  if (mousePressed && mouseButton == LEFT) {
-    currX = mouseX;
-    currY = mouseY;
-    if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+25 <= currY && currY <= height/2+75))
-      choose = "PLAY";
-    else if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+150 <= currY && currY <= height/2+200))
-      choose = "MENU";
-    if (choose != null) {
-      startTime = 0;
-      allWords = new ArrayList<String>();
-      onScreen = new ArrayList<Word>();
-      toDrop = new Queue();
-      mostRecent = new Stack();
-      score = 0;
-      typeProgress = ""; 
-      lives = 3;
-      mode = null; 
-      state = choose;
-      pause = false;
-    }
-  }
-}
->>>>>>> origin/master
 
