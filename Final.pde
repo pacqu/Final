@@ -307,7 +307,10 @@ void setGame() {
     textSize(14);
     fill(255);
     text("Next Word to Drop: " + toDrop.peek(), 500, 15);
-    text("Latest Word Typed: " + mostRecent.peek(), 500, 30);
+    if (!mostRecent.isEmpty())
+      text("Latest Word Typed: " + mostRecent.peek(), 500, 30);
+    else 
+      text("Latest Word Typed: ", 500, 30);
     if (onScreen.size() < 5) {
       drop();
     } 
@@ -408,7 +411,10 @@ void setGame() {
     textSize(14);
     fill(255);
     text("Next Word to Drop: " + toDrop.peek(), 500, 15);
-    text("Latest Word Typed: " + mostRecent.peek(), 500, 30);
+     if (!mostRecent.isEmpty())
+      text("Latest Word Typed: " + mostRecent.peek(), 500, 30);
+    else 
+      text("Latest Word Typed: ", 500, 30);
     if (onScreen.size() < 5) {
       drop();
     } 
