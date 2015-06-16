@@ -482,9 +482,15 @@ void keyPressed() {
           //score += 1; //This part changes depending on how we keep track of score
         }
       }
+    }
+  }
       typeProgress = "";
+<<<<<<< HEAD
     } 
     else if (key == ESC) {
+=======
+      if (key == ESC) {
+>>>>>>> origin/master
       key = 0;
       if (mode.equals("LIVES")) {
         pause = !pause;
@@ -498,7 +504,10 @@ void keyPressed() {
         //onScreen.get(i).setPause();
     }
   }
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 
 
 
