@@ -284,6 +284,14 @@ void setGame() {
     text("Typing:", 55, 655);
     text("Score", 655, 655);
     text(score, 655, 700);
+    if ((mouseX <= width && mouseX >= width - 60) && (mouseY <= 20 && mouseY >= 0))
+      fill(0,255,255);
+    else 
+      fill(255);
+    text("EXIT", width - 30, 10);
+    if (mousePressed && mouseButton == LEFT)
+      if ((width >= mouseX && mouseX >= width-60) && (0 <= mouseY && mouseY <= 20))
+        state = "END";
     if ((currentMillis-completeM) <= 400)
       text("+" + plus, completeX, completeY);
     if ((currentMillis-deleteM) <= 400) {
@@ -375,6 +383,14 @@ void setGame() {
     text("Typing:", 55, 655);
     text("Score", 655, 655);
     text(score, 655, 700);
+    if ((mouseX <= width && mouseX >= width - 60) && (mouseY <= 20 && mouseY >= 0))
+      fill(0,255,255);
+    else 
+      fill(255);
+    text("EXIT", width - 30, 10);
+    if (mousePressed && mouseButton == LEFT)
+      if ((width >= mouseX && mouseX >= width-60) && (0 <= mouseY && mouseY <= 20))
+        state = "END";
     if ((currentMillis-completeM) <= 400) {
       fill(0, 255, 0);
       text("+" + plus, completeX, completeY);
