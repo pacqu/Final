@@ -6,6 +6,7 @@ class Word {
   String highlight;
   String txt;
   int txtSize;
+  boolean pause;
 
   Word(float cx, float cy, String t, int ts) {
     x = cx;
@@ -16,21 +17,28 @@ class Word {
   }
 
   void setHighlight(String progress) {
-    for (int i = 0; i < progress.length (); i++) {
-      if (i < txt.length())  
-        if (progress.charAt(i) != txt.charAt(i)) {
+  if (!pause) {
+      for (int i = 0; i < progress.length (); i++) {
+        if (i < txt.length())  
+          if (progress.charAt(i) != txt.charAt(i)) {
+            highlight = "";
+            return;
+          }
+        if ( i >= txt.length()) {
           highlight = "";
           return;
         }
-      if ( i >= txt.length()) {
-        highlight = "";
-        return;
       }
-    }
-    highlight = progress;
-    //for (int j = (progress.length() - 1 ); j < txt.length(); j++)
-    //highlight += " ";
-  } 
+      highlight = progress;
+      //for (int j = (progress.length() - 1 ); j < txt.length(); j++)
+      //highlight += " ";
+    } 
+  }
+  
+  void setPause() {
+    pause = !pause;
+  }
+  
   float getY() {
     return y;
   }
