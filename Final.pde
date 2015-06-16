@@ -1,10 +1,10 @@
 //Final Project by Christopher Liang, Justin Pacquing, and Jeffrey Zou
 import java.io.*;
 
-String state,difficulty,mode,typeProgress,nextWord,wordFile; //"MENU", "PLAY", "OPTIONS", "CREDITS"
-int startTime,speed = 1,numberOfWords,score,currX,currY,dropCount = 0,lives = 3,plus,minus,level = 1;
-long completeM = 0,deleteM;
-float time,completeX,completeY,deleteX, fallRate = .5;
+String state, difficulty, mode, typeProgress, nextWord, wordFile; //"MENU", "PLAY", "OPTIONS", "CREDITS"
+int startTime, speed = 1, numberOfWords, score, currX, currY, dropCount = 0, lives = 3, plus, minus, level = 1;
+long completeM = 0, deleteM;
+float time, completeX, completeY, deleteX, fallRate = 1;
 boolean pause = false;
 ArrayList<String> allWords;
 ArrayList<Word> onScreen;
@@ -31,8 +31,7 @@ void draw() {
       time = 60;
     }
     statePlay();
-  } 
-  else if (state.equals("CREDITS")) 
+  } else if (state.equals("CREDITS")) 
     stateCredits();
   else if (state.equals("END")) 
     stateE();
@@ -56,7 +55,7 @@ void stateMenu() {
     fill(255, 0, 255);
   else 
     fill(255);
-  
+
   text("Credits", width/2, height/2+125);
   fill(255);
   if (mousePressed && mouseButton == LEFT) {
@@ -107,8 +106,7 @@ void statePlay() {
       else if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+225 <= currY && currY <= height/2+275))
         state = "MENU";
     }
-  } 
-  else
+  } else
     setG();
 }
 
@@ -142,174 +140,170 @@ void setG() {
     text("Score", 655, 655);
     text(score, 655, 700);
     if ((mouseX <= width && mouseX >= width - 60) && (mouseY <= 20 && mouseY >= 0))
-      fill(0,255,255);
+      fill(0, 255, 255);
     else 
       fill(255);
     text("EXIT", width - 30, 10);
     if (mousePressed && mouseButton == LEFT)
       if ((width >= mouseX && mouseX >= width-60) && (0 <= mouseY && mouseY <= 20))
         state = "END";
-      if ((currentMillis-completeM) <= 400)
-        text("+" + plus, completeX, completeY);
-      if ((currentMillis-deleteM) <= 400) {
-        fill(255, 70, 70);
-        text("-" +  minus, deleteX, 575);
-      }
-      fill(0, 102, 153);
-      textMode(CENTER);
-      textSize(50);
-      text(typeProgress, 277.5, 692.5);
-      getAllWords();
-      setToDrop();
-      textSize(14);
-      fill(255);
-      text("Next Word to Drop: " + toDrop.peek(), 500, 15);
-      if (!mostRecent.isEmpty())
-        text("Latest Word Typed: " + mostRecent.peek(), 500, 30);
-      else 
-        text("Latest Word Typed: ", 500, 30);
-      if (onScreen.size() < 5) {
-        drop();
-      } 
-      for (int i = 0; i < onScreen.size (); i++) {
-        if (i <onScreen.size())
-          onScreen.get(i).setHighlight(typeProgress);
-        if (i <onScreen.size())
-          fall(onScreen.get(i));
-        if (i <onScreen.size())
-          onScreen.get(i).display();
-      }
-    //println(startTime);
-      if (second() < startTime)
-        time = 60 - ( (60 + second()) - startTime  + 1);
-      else
-        time = 60 - ( second() - startTime + 1);
-    //println(time);
-      if (time <= 0 ) 
-        state = "END";
-      //println(state);
-      
-    } 
-    else {
-      long currentMillis = millis();
-      PImage img = loadImage("dark.png");
-      background(img);
-      if (lives == 3) {
-        stroke(136, 136, 136);
-        line(50, 25, 75, 50);
-        line(50, 50, 75, 25);
-        line(100, 25, 125, 50);
-        line(100, 50, 125, 25);
-        line(150, 25, 175, 50);
-        line(150, 50, 175, 25);
-      } 
-      else if (lives == 2) {
-        stroke(136, 136, 136);
-        line(100, 25, 125, 50);
-        line(100, 50, 125, 25);
-        line(150, 25, 175, 50);
-        line(150, 50, 175, 25);
-        stroke(255, 0, 0);
-        line(50, 25, 75, 50);
-        line(50, 50, 75, 25);
-      } 
-      else if (lives == 1) {
-        stroke(255, 0, 0);
-        line(50, 25, 75, 50);
-        line(50, 50, 75, 25);
-        line(100, 25, 125, 50);
-        line(100, 50, 125, 25);
-        stroke(136, 136, 136);
-        line(150, 25, 175, 50);
-        line(150, 50, 175, 25);
-      } 
-
-      fill(255, 255, 255);
-      stroke(0, 255, 0);
-      strokeWeight(10);
-      beginShape();
-      vertex(5, 640);
-      vertex(545, 640);
-      vertex(545, 745);
-      vertex(5, 745);
-      endShape(CLOSE);
-      stroke(255, 0, 0);
-      beginShape();
-      vertex(555, 640);
-      vertex(745, 640);
-      vertex(745, 745);
-      vertex(555, 745);
-      endShape(CLOSE);
-      fill(255);
-      fill(0, 102, 153);
-      textSize(25);
-      text("Typing:", 55, 655);
-      text("Score", 655, 655);
-      text(score, 655, 700);
-      if ((mouseX <= width && mouseX >= width - 60) && (mouseY <= 20 && mouseY >= 0))
-        fill(0,255,255);
-      else 
-        fill(255);
-      text("EXIT", width - 30, 10);
-      if (mousePressed && mouseButton == LEFT)
-        if ((width >= mouseX && mouseX >= width-60) && (0 <= mouseY && mouseY <= 20))
-          state = "END";
-        if ((currentMillis-completeM) <= 400) {
-          fill(0, 255, 0);
-          text("+" + plus, completeX, completeY);
-        }
-        if ((currentMillis-deleteM) <= 400) {
-          fill(255, 0, 0);
-          textSize(100);
-          text("X", deleteX, 575);
-        }
-        textMode(CENTER);
-        textSize(50);
-        text(typeProgress, 277.5, 692.5);
-        getAllWords();
-        setToDrop();
-        textSize(14);
-        fill(255);
-        text("Next Word to Drop: " + toDrop.peek(), 500, 15);
-        if (!mostRecent.isEmpty())
-          text("Latest Word Typed: " + mostRecent.peek(), 500, 30);
-        else 
-          text("Latest Word Typed: ", 500, 30);
-        if (onScreen.size() < 5) {
-          drop();
-        } 
-        for (int i = 0; i < onScreen.size (); i++) {
-          if (i <onScreen.size())
-            onScreen.get(i).setHighlight(typeProgress);
-          if (i <onScreen.size() && !pause)
-            fall(onScreen.get(i));
-          if (i <onScreen.size())
-            onScreen.get(i).display();
-        }
-        if (score < 50) {
-          level = 1;
-          fallRate = .5;
-        } 
-        else if (score < 100)
-          level = 2;
-        else if (score < 150)
-          level = 3;
-        else if (score < 200)
-          level = 4;
-        else 
-          level = 5;  
-        if (level != 1)
-          fallRate = level * .5 - .4;
-        if (lives == 0) {
-          state = "END";
-      //println(state);
-        }
-      }
+    if ((currentMillis-completeM) <= 400)
+      text("+" + plus, completeX, completeY);
+    if ((currentMillis-deleteM) <= 400) {
+      fill(255, 70, 70);
+      text("-" +  minus, deleteX, 575);
     }
+    fill(0, 102, 153);
+    textMode(CENTER);
+    textSize(50);
+    text(typeProgress, 277.5, 692.5);
+    getAllWords();
+    setToDrop();
+    textSize(14);
+    fill(255);
+    text("Next Word to Drop: " + toDrop.peek(), 500, 15);
+    if (!mostRecent.isEmpty())
+      text("Latest Word Typed: " + mostRecent.peek(), 500, 30);
+    else 
+      text("Latest Word Typed: ", 500, 30);
+    if (onScreen.size() < 5) {
+      drop();
+    } 
+    for (int i = 0; i < onScreen.size (); i++) {
+      if (i <onScreen.size())
+        onScreen.get(i).setHighlight(typeProgress);
+      if (i <onScreen.size())
+        fall(onScreen.get(i));
+      if (i <onScreen.size())
+        onScreen.get(i).display();
+    }
+    //println(startTime);
+    if (second() < startTime)
+      time = 60 - ( (60 + second()) - startTime  + 1);
+    else
+      time = 60 - ( second() - startTime + 1);
+    //println(time);
+    if (time <= 0 ) 
+      state = "END";
+    //println(state);
+  } else {
+    long currentMillis = millis();
+    PImage img = loadImage("dark.png");
+    background(img);
+    if (lives == 3) {
+      stroke(136, 136, 136);
+      line(50, 25, 75, 50);
+      line(50, 50, 75, 25);
+      line(100, 25, 125, 50);
+      line(100, 50, 125, 25);
+      line(150, 25, 175, 50);
+      line(150, 50, 175, 25);
+    } else if (lives == 2) {
+      stroke(136, 136, 136);
+      line(100, 25, 125, 50);
+      line(100, 50, 125, 25);
+      line(150, 25, 175, 50);
+      line(150, 50, 175, 25);
+      stroke(255, 0, 0);
+      line(50, 25, 75, 50);
+      line(50, 50, 75, 25);
+    } else if (lives == 1) {
+      stroke(255, 0, 0);
+      line(50, 25, 75, 50);
+      line(50, 50, 75, 25);
+      line(100, 25, 125, 50);
+      line(100, 50, 125, 25);
+      stroke(136, 136, 136);
+      line(150, 25, 175, 50);
+      line(150, 50, 175, 25);
+    } 
+
+    fill(255, 255, 255);
+    stroke(0, 255, 0);
+    strokeWeight(10);
+    beginShape();
+    vertex(5, 640);
+    vertex(545, 640);
+    vertex(545, 745);
+    vertex(5, 745);
+    endShape(CLOSE);
+    stroke(255, 0, 0);
+    beginShape();
+    vertex(555, 640);
+    vertex(745, 640);
+    vertex(745, 745);
+    vertex(555, 745);
+    endShape(CLOSE);
+    fill(255);
+    fill(0, 102, 153);
+    textSize(25);
+    text("Typing:", 55, 655);
+    text("Score", 655, 655);
+    text(score, 655, 700);
+    textMode(CENTER);
+    textSize(50);
+    text(typeProgress, 277.5, 692.5);
+    if ((mouseX <= width && mouseX >= width - 60) && (mouseY <= 20 && mouseY >= 0))
+      fill(0, 255, 255);
+    else 
+      fill(255);
+    textSize(25);
+    text("EXIT", width - 30, 10);
+    if (mousePressed && mouseButton == LEFT)
+      if ((width >= mouseX && mouseX >= width-60) && (0 <= mouseY && mouseY <= 20))
+        state = "END";
+    if ((currentMillis-completeM) <= 400) {
+      fill(0, 255, 0);
+      text("+" + plus, completeX, completeY);
+    }
+    if ((currentMillis-deleteM) <= 400) {
+      fill(255, 0, 0);
+      textSize(100);
+      text("X", deleteX, 575);
+    }
+    getAllWords();
+    setToDrop();
+    textSize(14);
+    fill(255);
+    text("Next Word to Drop: " + toDrop.peek(), 500, 15);
+    if (!mostRecent.isEmpty())
+      text("Latest Word Typed: " + mostRecent.peek(), 500, 30);
+    else 
+      text("Latest Word Typed: ", 500, 30);
+    if (onScreen.size() < 5) {
+      drop();
+    } 
+    for (int i = 0; i < onScreen.size (); i++) {
+      if (i <onScreen.size())
+        onScreen.get(i).setHighlight(typeProgress);
+      if (i <onScreen.size() && !pause)
+        fall(onScreen.get(i));
+      if (i <onScreen.size())
+        onScreen.get(i).display();
+    }
+    if (score < 50) {
+      level = 1;
+      fallRate = .5;
+    } else if (score < 100)
+      level = 2;
+    else if (score < 150)
+      level = 3;
+    else if (score < 200)
+      level = 4;
+    else 
+      level = 5;  
+    if (level != 1)
+      fallRate = level * .5 - .4;
+    if (lives == 0) {
+      state = "END";
+      //println(state);
+    }
+  }
+}
 
 
 void stateE() {
-//println("stateEnd called");
+  //println("stateEnd called");
   PImage img = loadImage("dark.png");
   background(img);
   fill(255);
@@ -469,7 +463,7 @@ void keyPressed() {
     } else if (key == ESC) {
       key = 0;
       pause = !pause;
-      for (int i=0;i<onScreen.size();i++)
+      for (int i=0; i<onScreen.size (); i++)
         onScreen.get(i).setPause();
     }
   }
@@ -507,7 +501,7 @@ void setGame() {
     text("Score", 655, 655);
     text(score, 655, 700);
     if ((mouseX <= width && mouseX >= width - 60) && (mouseY <= 20 && mouseY >= 0))
-      fill(0,255,255);
+      fill(0, 255, 255);
     else 
       fill(255);
     text("EXIT", width - 30, 10);
@@ -609,7 +603,7 @@ void setGame() {
     text("Score", 655, 655);
     text(score, 655, 700);
     if ((mouseX <= width && mouseX >= width - 60) && (mouseY <= 20 && mouseY >= 0))
-      fill(0,255,255);
+      fill(0, 255, 255);
     else 
       fill(255);
     text("EXIT", width - 30, 10);
@@ -632,7 +626,7 @@ void setGame() {
     textSize(14);
     fill(255);
     text("Next Word to Drop: " + toDrop.peek(), 500, 15);
-     if (!mostRecent.isEmpty())
+    if (!mostRecent.isEmpty())
       text("Latest Word Typed: " + mostRecent.peek(), 500, 30);
     else 
       text("Latest Word Typed: ", 500, 30);
@@ -715,5 +709,4 @@ void stateEnd() {
     }
   }
 }
-
 
