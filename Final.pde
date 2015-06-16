@@ -29,6 +29,7 @@ int plus;
 int minus;
 long deleteM;
 float deleteX;
+boolean pause = false;
 
 
 float fallRate = .5;
@@ -233,7 +234,8 @@ void keyPressed() {
   else if (key == BACKSPACE) {
     if (typeProgress.length() > 0)
       typeProgress = typeProgress.substring(0, typeProgress.length() - 1);
-  } else if (key == ENTER || key == RETURN) {
+  } 
+  else if (key == ENTER || key == RETURN) {
     float m = millis();
     for (int i = 0; i < onScreen.size (); i++) {
       if ((onScreen.get(i)).getTxt().equals(typeProgress)) {
@@ -249,6 +251,11 @@ void keyPressed() {
     }
     typeProgress = "";
   }
+  else if (key == ESC) {
+    key = 0;
+    pause = !pause;
+  }
+    
 }
 
 void setGame() {
@@ -317,7 +324,8 @@ void setGame() {
       state = "END";
       //println(state);
     }
-  } else {
+  } 
+  else {
     long currentMillis = millis();
     background(0);
     if (lives == 3) {
@@ -389,7 +397,7 @@ void setGame() {
     for (int i = 0; i < onScreen.size (); i++) {
       if (i <onScreen.size())
         onScreen.get(i).setHighlight(typeProgress);
-      if (i <onScreen.size())
+      if (i <onScreen.size() && !pause)
         fall(onScreen.get(i));
       if (i <onScreen.size())
         onScreen.get(i).display();
