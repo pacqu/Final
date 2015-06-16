@@ -99,8 +99,10 @@ void statePlay() {
     if (mousePressed && mouseButton == LEFT) {
       currX = mouseX;
       currY = mouseY;
-      if ((width/2-100 <= currX && currX <= width/2+100) && (height/2-75 <= currY && currY <= height/2-25))
+      if ((width/2-100 <= currX && currX <= width/2+100) && (height/2-75 <= currY && currY <= height/2-25)) {
         mode = "TIMED";
+        startTime = second();
+      }
       else if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+75 <= currY && currY <= height/2+125))
         mode = "LIVES";
       else if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+225 <= currY && currY <= height/2+275))
