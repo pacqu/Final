@@ -499,15 +499,16 @@ void keyPressed() {
           //score += 1; //This part changes depending on how we keep track of score
         }
       }
+    }
+  }
       typeProgress = "";
-    } else if (key == ESC) {
+      if (key == ESC) {
       key = 0;
       pause = !pause;
       for (int i=0; i<onScreen.size(); i++)
         onScreen.get(i).setPause();
     }
   }
-}
 
 
 
