@@ -30,6 +30,7 @@ int minus;
 long deleteM;
 float deleteX;
 boolean pause = false;
+int level = 1;
 
 
 float fallRate = .5;
@@ -61,7 +62,6 @@ void draw() {
   }
 }
 
-//Use to draw main menu
 void stateMenu() {
   textSize(64);
   textAlign(CENTER, CENTER);
@@ -94,7 +94,7 @@ void stateMenu() {
       state = "CREDITS";
   }
 }
-//to draw play options
+
 void statePlay() {
   if (mode == null) {
     textSize(64);
@@ -134,7 +134,7 @@ void statePlay() {
         state = "MENU";
     }
   } else
-    setGame(); //creates the game
+    setGame();
 }
 
 void stateCredits() {
@@ -161,7 +161,7 @@ void stateCredits() {
       state = "MENU";
   }
 }
-//Read in the file to the arraylist
+
 ArrayList<String> getWords(String fileName) {
   ArrayList<String> re = new ArrayList<String>();
   try {
@@ -218,7 +218,8 @@ void fall(Word w) {
     deleteX = w.getX();
     onScreen.remove(w);
     minus = (w.txt).length();
-    score -= minus;
+    if (mode.equals("TIMED"))
+      score -= minus;
     lives--;
   }
 }
@@ -246,7 +247,7 @@ void keyPressed() {
         plus = (rem.txt).length();
         score += plus;
         mostRecent.push(rem.txt); 
-        //This part changes depending on how we keep track of score
+        //score += 1; //This part changes depending on how we keep track of score
       }
     }
     typeProgress = "";
@@ -257,7 +258,6 @@ void keyPressed() {
   }
     
 }
-
 void setGame() {
   if (mode.equals("TIMED")) {
     long currentMillis = millis();
@@ -284,14 +284,14 @@ void setGame() {
     text("Timer: " + (int) time, 75, 25);
     fill(0, 102, 153);
     textSize(25);
-    text("Typing:", 55, 655); 
+    text("Typing:", 55, 655);
     text("Score", 655, 655);
     text(score, 655, 700);
     if ((currentMillis-completeM) <= 400)
-      text("+" + plus, completeX, completeY); //when complete, the point value appears in place of the word
+      text("+" + plus, completeX, completeY);
     if ((currentMillis-deleteM) <= 400) {
       fill(255, 70, 70);
-      text("-" +  minus, deleteX, 575); //negative point value appears when you miss a word
+      text("-" +  minus, deleteX, 575);
     }
     fill(0, 102, 153);
     textMode(CENTER);
@@ -327,33 +327,34 @@ void setGame() {
   } 
   else {
     long currentMillis = millis();
-    background(0);
+    PImage img = loadImage("dark.png");
+    background(img);
     if (lives == 3) {
       stroke(136, 136, 136);
-      line(250, 25, 275, 50);
-      line(250, 50, 275, 25);
-      line(300, 25, 325, 50);
-      line(300, 50, 325, 25);
-      line(350, 25, 375, 50);
-      line(350, 50, 375, 25);
+      line(50, 25, 75, 50);
+      line(50, 50, 75, 25);
+      line(100, 25, 125, 50);
+      line(100, 50, 125, 25);
+      line(150, 25, 175, 50);
+      line(150, 50, 175, 25);
     } else if (lives == 2) {
       stroke(136, 136, 136);
-      line(300, 25, 325, 50);
-      line(300, 50, 325, 25);
-      line(350, 25, 375, 50);
-      line(350, 50, 375, 25);
+      line(100, 25, 125, 50);
+      line(100, 50, 125, 25);
+      line(150, 25, 175, 50);
+      line(150, 50, 175, 25);
       stroke(255, 0, 0);
-      line(250, 25, 275, 50);
-      line(250, 50, 275, 25);
+      line(50, 25, 75, 50);
+      line(50, 50, 75, 25);
     } else if (lives == 1) {
       stroke(255, 0, 0);
-      line(250, 25, 275, 50);
-      line(250, 50, 275, 25);
-      line(300, 25, 325, 50);
-      line(300, 50, 325, 25);
+      line(50, 25, 75, 50);
+      line(50, 50, 75, 25);
+      line(100, 25, 125, 50);
+      line(100, 50, 125, 25);
       stroke(136, 136, 136);
-      line(350, 25, 375, 50);
-      line(350, 50, 375, 25);
+      line(150, 25, 175, 50);
+      line(150, 50, 175, 25);
     } 
 
     fill(255, 255, 255);
@@ -378,10 +379,15 @@ void setGame() {
     text("Typing:", 55, 655);
     text("Score", 655, 655);
     text(score, 655, 700);
-    if ((currentMillis-completeM) <= 400)
+    if ((currentMillis-completeM) <= 400) {
+      fill(0,255,0);
       text("+" + plus, completeX, completeY);
-    if ((currentMillis-deleteM) <= 400)
-      text("-" +  minus, deleteX, 575);
+    }
+    if ((currentMillis-deleteM) <= 400){
+      fill(255,0,0);
+      textSize(100);
+      text("X", deleteX, 575);
+  }
     textMode(CENTER);
     textSize(50);
     text(typeProgress, 277.5, 692.5);
@@ -402,12 +408,21 @@ void setGame() {
       if (i <onScreen.size())
         onScreen.get(i).display();
     }
-    if (startTime == second() + 1) {
-      fallRate += .05;
-      fill(255);
-      textSize(14);
-      text("Fall Rate increased!", 125, 25);
+    if (score < 50) {
+      level = 1;
+      fallRate = .5;
     }
+    else if (score < 100)
+      level = 2;
+    else if (score < 150)
+      level = 3;
+    else if (score < 200)
+      level = 4;
+    else 
+      level = 5;  
+    if (level != 1)
+      fallRate = level * .5 - .4;
+        
     if (lives == 0) {
       state = "END";
       //println(state);
@@ -447,7 +462,6 @@ void stateEnd() {
       choose = "PLAY";
     else if ((width/2-100 <= currX && currX <= width/2+100) && (height/2+150 <= currY && currY <= height/2+200))
       choose = "MENU";
-    //resets everything
     if (choose != null) {
       startTime = 0;
       allWords = new ArrayList<String>();
