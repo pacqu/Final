@@ -490,6 +490,7 @@ void stateEnd() {
       lives = 3;
       mode = null; 
       state = choose;
+      pause = false;
     }
   }
 }
