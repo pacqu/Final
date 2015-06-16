@@ -447,7 +447,7 @@ void keyPressed() {
         typeProgress = typeProgress.substring(0, typeProgress.length() - 1);
     } else if (key == ENTER || key == RETURN) {
       float m = millis();
-      for (int i = 0; i < onScreen.size (); i++) {
+      for (int i = 0; i < onScreen.size(); i++) {
         if ((onScreen.get(i)).getTxt().equals(typeProgress)) {
           completeX = onScreen.get(i).x + 40;
           completeY = onScreen.get(i).y + 20;
@@ -463,7 +463,7 @@ void keyPressed() {
     } else if (key == ESC) {
       key = 0;
       pause = !pause;
-      for (int i=0; i<onScreen.size (); i++)
+      for (int i=0; i<onScreen.size(); i++)
         onScreen.get(i).setPause();
     }
   }
