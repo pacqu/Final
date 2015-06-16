@@ -501,6 +501,7 @@ void setGame() {
     fill(0, 102, 153);
     textSize(25);
     text("Typing:", 55, 655);
+    text(typeProgress, 277.5, 692.5);
     text("Score", 655, 655);
     text(score, 655, 700);
     if ((mouseX <= width && mouseX >= width - 60) && (mouseY <= 20 && mouseY >= 0))
@@ -624,7 +625,6 @@ void setGame() {
     }
     textMode(CENTER);
     textSize(50);
-    text(typeProgress, 277.5, 692.5);
     getAllWords();
     setToDrop();
     textSize(14);
