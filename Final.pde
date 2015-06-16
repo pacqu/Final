@@ -26,10 +26,6 @@ void draw() {
   if (state.equals("MENU")) 
     stateMenu();
   else if (state.equals("PLAY")) {
-    if (startTime == 0) {
-      startTime = second();
-      time = 60;
-    }
     statePlay();
   } else if (state.equals("CREDITS")) 
     stateCredits();
