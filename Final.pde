@@ -135,7 +135,7 @@ void setGame() {
     fill(255);
     textSize(30);
     text("Timer: " + (int) time, 75, 25);
-    textSize(45);
+    textSize(30);
     text(score, 655, 700);
     textSize(25);
     text("Typing:", 270, 655);
@@ -154,9 +154,9 @@ void setGame() {
         fill(255, 70, 70);
         text("-" +  minus, deleteX, 575);
       }
-      fill(0, 102, 153);
+      fill(255);
       textMode(CENTER);
-      textSize(45);
+      textSize(30);
       text(typeProgress, 277.5, 692.5);
       getAllWords();
       setToDrop();
@@ -178,36 +178,13 @@ void setGame() {
         if (i <onScreen.size())
           onScreen.get(i).display();
       }
-    if ((currentMillis-completeM) <= 400)
-      text("+" + plus, completeX, completeY);
-    if ((currentMillis-deleteM) <= 400) {
-      fill(255, 70, 70);
-      text("-" +  minus, deleteX, 575);
-    }
-    fill(0, 102, 153);
-    textMode(CENTER);
-    textSize(50);
-    text(typeProgress, 277.5, 692.5);
-    getAllWords();
-    setToDrop();
-    textSize(14);
-    fill(255);
-    text("Next Word to Drop: " + toDrop.peek(), 500, 15);
-    if (!mostRecent.isEmpty())
-      text("Latest Word Typed: " + mostRecent.peek(), 500, 30);
-    else 
-      text("Latest Word Typed: ", 500, 30);
-    if (onScreen.size() < 5) {
-      drop();
-    } 
-    for (int i = 0; i < onScreen.size (); i++) {
-      if (i <onScreen.size())
-        onScreen.get(i).setHighlight(typeProgress);
-      if (i <onScreen.size())
-        fall(onScreen.get(i));
-      if (i <onScreen.size())
-        onScreen.get(i).display();
-    }
+      if ((currentMillis-completeM) <= 400)
+        text("+" + plus, completeX, completeY);
+      if ((currentMillis-deleteM) <= 400) {
+        fill(255, 70, 70);
+        text("-" +  minus, deleteX, 575);
+      }
+    
     //println(startTime);
     if (second() < startTime)
       time = 60 - ( (60 + second()) - startTime  + 1);
@@ -218,7 +195,7 @@ void setGame() {
       state = "END";
     //println(state);
   } 
-  else {
+  else if (mode.equals("LIVES")) {
     long currentMillis = millis();
     PImage img = loadImage("dark.png");
     background(img);
@@ -267,7 +244,7 @@ void setGame() {
       vertex(555, 745);
       endShape(CLOSE);
       fill(255);
-      textSize(45);
+      textSize(30);
       text(score, 655, 700);
       textSize(25);
       text("Typing:", 270, 655);
@@ -290,7 +267,7 @@ void setGame() {
           text("X", deleteX, 575);
         }
         textMode(CENTER);
-        textSize(45);
+        textSize(30);
         text(typeProgress, 277.5, 692.5);
         getAllWords();
         setToDrop();
@@ -307,7 +284,7 @@ void setGame() {
         for (int i = 0; i < onScreen.size (); i++) {
           if (i <onScreen.size())
             onScreen.get(i).setHighlight(typeProgress);
-          if (i <onScreen.size() && !pause)
+          if (i < onScreen.size() && !pause)
             fall(onScreen.get(i));
           if (i <onScreen.size())
             onScreen.get(i).display();
@@ -339,6 +316,12 @@ void setGame() {
       if ((width >= mouseX && mouseX >= width-60) && (0 <= mouseY && mouseY <= 20))
         state = "END";
     }
+  }
+  else if (mode.equals("PAUSE")) {
+    PImage img = loadImage("credz.jpg");
+    background(img);
+    textSize(100);
+    text("PAUSED",width/2,height/2);
   }
 }
 
@@ -476,8 +459,7 @@ void fall(Word w) {
 //keyPressed:
 void keyPressed() {
   //Keeps track of your progress
-  if (!pause) {
-    if ((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z') || (key == ' ')) {
+    if (((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z') || (key == ' ')) && (typeProgress.length() <= 20) && !pause) {
       typeProgress += key;
       typeProgress = typeProgress.toLowerCase();
     } 
@@ -485,7 +467,8 @@ void keyPressed() {
     else if (key == BACKSPACE) {
       if (typeProgress.length() > 0)
         typeProgress = typeProgress.substring(0, typeProgress.length() - 1);
-    } else if (key == ENTER || key == RETURN) {
+    } 
+    else if (key == ENTER || key == RETURN) {
       float m = millis();
       for (int i = 0; i < onScreen.size(); i++) {
         if ((onScreen.get(i)).getTxt().equals(typeProgress)) {
@@ -500,14 +483,22 @@ void keyPressed() {
         }
       }
       typeProgress = "";
-    } else if (key == ESC) {
+    } 
+    else if (key == ESC) {
       key = 0;
-      pause = !pause;
-      for (int i=0; i<onScreen.size(); i++)
-        onScreen.get(i).setPause();
+      if (mode.equals("LIVES")) {
+        pause = !pause;
+        mode = "PAUSE";
+      }
+      else if (mode.equals("PAUSE")) {
+        pause = !pause;
+        mode = "LIVES";
+      }
+      //for (int i=0; i<onScreen.size(); i++)
+        //onScreen.get(i).setPause();
     }
   }
-}
+
 
 
 
