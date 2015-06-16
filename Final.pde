@@ -138,26 +138,26 @@ void statePlay() {
 }
 
 void stateCredits() {
-  textSize(64);
+  textSize(100);
   textAlign(CENTER, CENTER);
   rectMode(CENTER);
-  PImage img = loadImage("dark.png");
+  PImage img = loadImage("credz.jpg");
   background(img);
-  fill(255);
-  text("CREDZ", width/2, height/2 - 200);
-  textSize(20);
+  fill(0);
+  text("CREDZ", width/2, height/2 + 200);
+  textSize(30);
   text("Justin Pacquing", width/2, height/2 - 50);
-  text("Jeffrey Zou", width/2, height/2 );
-  text("Christopher Liang", width/2, height/2 + 50);
-  if ((width/2 - 100 <= mouseX && mouseX <= width/2 + 100) && (height/2 -175 <= mouseY && mouseY <= height/2 -125))
+  text("Jeffrey Zou", width * 3. / 4 - 70, height/2 + 85 );
+  text("Christopher Liang", width/4 + 50, height/2 + 85);
+  if ((width - 260 <= mouseX && mouseX <= width + 20) && (height/2 + 100 <= mouseY && mouseY <= height/2 + 200))
     fill(0, 0, 255);
   else 
     fill(255);
-  text("Back", width/2, height/2 - 150);
+  text("Back", width - 80, height/2 + 150);
   if (mousePressed && mouseButton == LEFT) {
     currX = mouseX;
     currY = mouseY;
-    if ((width/2 - 100 <= currX && currX <= width/2 + 100) && (height/2 -200 <= currY && currY <= height/2 -100))
+    if ((width - 260 <= currX && currX <= width + 20) && (height/2 + 100 <= currY && currY <= height/2 + 200))  
       state = "MENU";
   }
 }
@@ -235,8 +235,7 @@ void keyPressed() {
   else if (key == BACKSPACE) {
     if (typeProgress.length() > 0)
       typeProgress = typeProgress.substring(0, typeProgress.length() - 1);
-  } 
-  else if (key == ENTER || key == RETURN) {
+  } else if (key == ENTER || key == RETURN) {
     float m = millis();
     for (int i = 0; i < onScreen.size (); i++) {
       if ((onScreen.get(i)).getTxt().equals(typeProgress)) {
@@ -251,12 +250,10 @@ void keyPressed() {
       }
     }
     typeProgress = "";
-  }
-  else if (key == ESC) {
+  } else if (key == ESC) {
     key = 0;
     pause = !pause;
   }
-    
 }
 void setGame() {
   if (mode.equals("TIMED")) {
@@ -324,8 +321,7 @@ void setGame() {
       state = "END";
       //println(state);
     }
-  } 
-  else {
+  } else {
     long currentMillis = millis();
     PImage img = loadImage("dark.png");
     background(img);
@@ -380,14 +376,14 @@ void setGame() {
     text("Score", 655, 655);
     text(score, 655, 700);
     if ((currentMillis-completeM) <= 400) {
-      fill(0,255,0);
+      fill(0, 255, 0);
       text("+" + plus, completeX, completeY);
     }
-    if ((currentMillis-deleteM) <= 400){
-      fill(255,0,0);
+    if ((currentMillis-deleteM) <= 400) {
+      fill(255, 0, 0);
       textSize(100);
       text("X", deleteX, 575);
-  }
+    }
     textMode(CENTER);
     textSize(50);
     text(typeProgress, 277.5, 692.5);
@@ -411,8 +407,7 @@ void setGame() {
     if (score < 50) {
       level = 1;
       fallRate = .5;
-    }
-    else if (score < 100)
+    } else if (score < 100)
       level = 2;
     else if (score < 150)
       level = 3;
@@ -422,7 +417,7 @@ void setGame() {
       level = 5;  
     if (level != 1)
       fallRate = level * .5 - .4;
-        
+
     if (lives == 0) {
       state = "END";
       //println(state);
